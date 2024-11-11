@@ -68,6 +68,7 @@ const GazzettaNews = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    backgroundColor: '#124728',
   },
   newsItem: {
     marginBottom: 24,
@@ -82,11 +83,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
-    color: '#333',
+    color: 'white',
   },
   description: {
     fontSize: 16,
-    color: '#333',
+    color: 'white',
   },
 });
 

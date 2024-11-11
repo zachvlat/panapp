@@ -68,6 +68,7 @@ const Sport24News = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    backgroundColor: '#124728',
   },
   newsItem: {
     marginBottom: 24,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: '#333',
+    color: 'white',
   },
 });
 
