@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { StyleSheet } from 'react-native';
 import Sport24News from './Sport24News';
 import SdnaNews from './SdnaNews';
 import GazzettaNews from './GazzettaNews';
@@ -12,11 +11,17 @@ function MyDrawer() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        drawerStyle={styles.drawerStyle}
-        drawerContentOptions={{
-          activeTintColor: 'white', // Active item text color
-          inactiveTintColor: 'white', // Inactive item text color
-          labelStyle: styles.drawerLabel,
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#90EE90',  // Set background color of the drawer
+          },
+          drawerActiveTintColor: '#FF0000',  // Active label color inline
+          drawerInactiveTintColor: '#008000',  // Inactive label color inline
+          drawerLabelStyle: {
+            fontSize: 18,  // Label font size
+            fontWeight: 'bold',  // Font weight for labels
+            color: '#0000FF',  // Label font color inline
+          },
         }}
       >
         <Drawer.Screen name="Sport24 News" component={Sport24News} />
@@ -26,14 +31,5 @@ function MyDrawer() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  drawerStyle: {
-    backgroundColor: '#90EE90', // Light green background color
-  },
-  drawerLabel: {
-    color: 'white', // White text color
-  },
-});
 
 export default MyDrawer;
