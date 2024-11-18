@@ -49,7 +49,7 @@ const GazzettaNews = () => {
   };
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <ActivityIndicator size="large" color="#114325" />;
   }
 
   return (

@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
 const Welcome = () => {
-  const [name, setName] = useState('');
-
-  const handleSubmit = () => {
-    console.log('Hello,', name);
-  };
 
   return (
     <View style={styles.container}>
       <Image 
-        source={{ uri: 'https://tmssl.akamaized.net//images/wappen/head/265.png' }} 
+        source={{ uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Panathinaikos_F.C._logo.svg/600px-Panathinaikos_F.C._logo.svg.png' }} 
         style={styles.logo} 
       />
       <Text style={styles.title}>Welcome to Panathinaikos News App</Text>
@@ -22,7 +17,7 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    paddingTop: '25px',
     alignItems: 'center',
     backgroundColor: '#124728',
   },
