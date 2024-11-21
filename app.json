@@ -12,7 +12,10 @@
       "backgroundColor": "#0B6623"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zatsando.panapp",
+      "config": {
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.zatsando.panapp",
-	  "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
