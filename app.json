@@ -13,7 +13,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.zatsando.panapp",
+      "bundleIdentifier": "com.zachvlat.panapp",
       "config": {
       }
     },
@@ -23,7 +23,7 @@
         "backgroundImage": "./assets/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_background.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.zatsando.panapp",
+      "package": "com.zachvlat.panapp",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
