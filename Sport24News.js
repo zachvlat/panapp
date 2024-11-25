@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ScrollView, ActivityIndicator, StyleSheet } from 'react-native';
+import { 
+  View, 
+  Text, 
+  Image, 
+  ScrollView, 
+  ActivityIndicator, 
+  StyleSheet, 
+  Pressable, 
+  Linking 
+} from 'react-native';
 import xml2js from 'react-native-xml2js';
 
 const Sport24News = () => {
@@ -35,6 +44,7 @@ const Sport24News = () => {
         const mappedItems = filteredItems.map((item) => ({
           title: item.title[0],
           description: item.description[0],
+          link: item.link[0], // Add the link property
           image: item["content:encoded"]
             ? item["content:encoded"][0].match(/src="([^"]+)"/)[1]
             : null,
@@ -56,10 +66,14 @@ const Sport24News = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {newsItems.map((news, index) => (
-        <View key={index} style={styles.newsItem}>
+        <Pressable 
+          key={index} 
+          style={styles.newsItem} 
+          onPress={() => Linking.openURL(news.link)} // Open the link when pressed
+        >
           {news.image && <Image source={{ uri: news.image }} style={styles.image} />}
           <Text style={styles.description}>{news.description}</Text>
-        </View>
+        </Pressable>
       ))}
     </ScrollView>
   );
