@@ -10,15 +10,16 @@ enableScreens();
 const drawerTheme = {
   dark: false,
   colors: {
-    primary: '#4CAF50', // Green primary
-    background: '#F1F8E9', // Light green background
-    card: '#388E3C', // Darker green for headers or cards
-    text: '#FFFFFF', // White text
-    border: '#2E7D32', // Border color
-    notification: '#A5D6A7', // Accent green
+    primary: '#4CAF50',
+    background: '#124728', // Match Welcome component background color
+    card: '#388E3C',
+    text: '#FFFFFF',
+    border: '#2E7D32',
+    notification: '#A5D6A7',
   },
   fonts: DefaultTheme.fonts || undefined,
 };
+
 
 
 function App() {

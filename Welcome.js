@@ -23,7 +23,7 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 25, // Use numeric values for padding
+    paddingTop: 25,
     alignItems: 'center',
     backgroundColor: '#124728',
   },
@@ -35,10 +35,13 @@ const styles = StyleSheet.create({
   webviewContainer: {
     flex: 1,
     width: '100%',
+    backgroundColor: '#124728', // Added background color
   },
   webview: {
     flex: 1,
+    backgroundColor: '#124728', // Added background color for WebView
   },
 });
+
 
 export default Welcome;
