@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { WebView } from 'react-native-webview'; // Import WebView
+import { WebView } from 'react-native-webview';
 import logo from './assets/Web-IconKitchen-Output/web/icon-512.png';
 
 const Welcome = () => {
@@ -12,7 +12,7 @@ const Welcome = () => {
       />
       <View style={styles.webviewContainer}>
         <WebView 
-          source={{ uri: 'https://raw.githubusercontent.com/zachvlat/mycv/refs/heads/main/pana.html?token=GHSAT0AAAAAACZA6U3OF3TTKQK5B6U5KGNKZ2EM3FQ' }} 
+          source={{ uri: 'https://raw.githubusercontent.com/zachvlat/awsphotos-script/refs/heads/master/panapp.html' }} 
           style={styles.webview} 
         />
       </View>
