@@ -12,7 +12,7 @@ const Welcome = () => {
       />
       <View style={styles.webviewContainer}>
         <WebView 
-          source={{ uri: 'https://raw.githubusercontent.com/zachvlat/awsphotos-script/refs/heads/master/panapp.html' }} 
+          source={{ uri: 'https://zachinvalidation.netlify.app/panapp' }} 
           style={styles.webview} 
         />
       </View>
