@@ -1,15 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
+import { WebView } from 'react-native-webview'; // Import WebView
+import logo from './assets/Web-IconKitchen-Output/web/icon-512.png';
 
 const Welcome = () => {
-
   return (
     <View style={styles.container}>
       <Image 
-        source={{ uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Panathinaikos_F.C._logo.svg/600px-Panathinaikos_F.C._logo.svg.png' }} 
+        source={logo} 
         style={styles.logo} 
       />
-      <Text style={styles.title}>Welcome to Panathinaikos News App</Text>
+      <View style={styles.webviewContainer}>
+        <WebView 
+          source={{ uri: 'https://raw.githubusercontent.com/zachvlat/mycv/refs/heads/main/pana.html?token=GHSAT0AAAAAACZA6U3OF3TTKQK5B6U5KGNKZ2EM3FQ' }} 
+          style={styles.webview} 
+        />
+      </View>
     </View>
   );
 };
@@ -17,7 +23,7 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: '25px',
+    paddingTop: 25, // Use numeric values for padding
     alignItems: 'center',
     backgroundColor: '#124728',
   },
@@ -26,11 +32,12 @@ const styles = StyleSheet.create({
     height: 200,
     marginBottom: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
+  webviewContainer: {
+    flex: 1,
+    width: '100%',
+  },
+  webview: {
+    flex: 1,
   },
 });
 
