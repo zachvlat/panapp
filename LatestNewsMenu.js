@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 const LatestNewsMenu = ({ navigation }) => {
-  const [isNewsMenuOpen, setIsNewsMenuOpen] = useState(false);
+  const [isNewsMenuOpen, setIsNewsMenuOpen] = useState(true);
 
   return (
     <View>

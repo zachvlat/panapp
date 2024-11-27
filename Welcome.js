@@ -14,6 +14,9 @@ const Welcome = () => {
         <WebView 
           source={{ uri: 'https://zachinvalidation.netlify.app/panapp' }} 
           style={styles.webview} 
+          setBuiltInZoomControls={false}
+          setDisplayZoomControls={false}
+          textZoom={100}
         />
       </View>
     </View>
@@ -35,11 +38,11 @@ const styles = StyleSheet.create({
   webviewContainer: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#124728', // Added background color
+    backgroundColor: '#124728',
   },
   webview: {
     flex: 1,
-    backgroundColor: '#124728', // Added background color for WebView
+    backgroundColor: '#124728',
   },
 });
 
