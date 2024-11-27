@@ -11,6 +11,12 @@ const CustomDrawerContent = ({ navigation }) => {
       >
         <Text style={{ color: '#eff8ef', fontSize: 16 }}>Welcome</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('FootballRoster')}
+        style={{ padding: 15 }}
+      >
+        <Text style={{ color: '#eff8ef', fontSize: 16 }}>Football Roster</Text>
+      </TouchableOpacity>
       
       <LatestNewsMenu navigation={navigation} />
     </View>
