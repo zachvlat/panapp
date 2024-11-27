@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator, FlatList } from 'react-native';
 import axios from 'axios';
-import { Card, Text, List, ActivityIndicator, useTheme } from 'react-native-paper';
 
 const FootballRoster = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { colors } = useTheme();
 
   useEffect(() => {
     // Fetch data from the JSON URL
     axios.get('https://raw.githubusercontent.com/zachvlat/various-files/refs/heads/master/footballroster.json')
       .then((response) => {
-        setData(response.data);
+        // Group players by position
+        const groupedByPosition = response.data.reduce((acc, player) => {
+          if (!acc[player.position]) {
+            acc[player.position] = [];
+          }
+          acc[player.position].push(player);
+          return acc;
+        }, {});
+        setData(groupedByPosition); // Store grouped data
         setLoading(false);
       })
       .catch((err) => {
@@ -25,7 +31,7 @@ const FootballRoster = () => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
@@ -38,29 +44,27 @@ const FootballRoster = () => {
     );
   }
 
+  const renderPlayer = ({ item }) => (
+    <View style={styles.playerItem}>
+      <Text style={styles.playerName}>{item.name}</Text>
+      <Text style={styles.playerDetail}>Position: {item.position}</Text>
+      <Text style={styles.playerDetail}>Age: {item.age}</Text>
+      <Text style={styles.playerDetail}>Country: {item.country}</Text>
+      <Text style={styles.playerDetail}>Value: {item.value}</Text>
+    </View>
+  );
+
   return (
     <ScrollView style={styles.container}>
-      {data?.players?.map((player, index) => (
-        <Card key={index} style={styles.card}>
-          <Card.Content>
-            <Text style={styles.playerName}>{player.name}</Text>
-            <List.Item
-              title="Position"
-              description={player.position}
-              left={() => <List.Icon icon="account" />}
-            />
-            <List.Item
-              title="Age"
-              description={player.age}
-              left={() => <List.Icon icon="calendar" />}
-            />
-            <List.Item
-              title="Team"
-              description={player.team}
-              left={() => <List.Icon icon="football" />}
-            />
-          </Card.Content>
-        </Card>
+      {Object.keys(data).map((position) => (
+        <View key={position}>
+          <Text style={styles.positionHeader}>{position}</Text>
+          <FlatList
+            data={data[position]} // Players in the current position
+            renderItem={renderPlayer}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
       ))}
     </ScrollView>
   );
@@ -68,16 +72,30 @@ const FootballRoster = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 16,
   },
-  card: {
-    marginBottom: 12,
+  positionHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color:'white',
+    marginVertical: 10,
+  },
+  playerItem: {
+    padding: 5,
+    marginBottom: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 8,
+    borderWidth: 5,
+    borderColor: 'darkgreen',
   },
   playerName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 5,
+  },
+  playerDetail: {
+    fontSize: 14,
+    marginBottom: 3,
   },
   loadingContainer: {
     flex: 1,
