@@ -8,8 +8,7 @@ const FootballRoster = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch data from the JSON URL
-    axios.get('https://raw.githubusercontent.com/zachvlat/various-files/refs/heads/master/footballroster.json')
+    axios.get('https://zachinvalidation.netlify.app/footballroster.json')
       .then((response) => {
         // Group players by position
         const groupedByPosition = response.data.reduce((acc, player) => {

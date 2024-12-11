@@ -15,7 +15,7 @@ const Welcome = () => {
           source={{ uri: 'https://zachinvalidation.netlify.app/panapp' }} 
           style={styles.webview} 
           setBuiltInZoomControls={false}
-          setDisplayZoomControls={false}
+          directionalLockEnabled={false}
           textZoom={100}
         />
       </View>
