@@ -7,6 +7,7 @@ import GazzettaNews from './GazzettaNews';
 import Welcome from './Welcome';
 import Leoforos1908News from './Leoforos1908News';
 import FootballRoster from './FootballRoster'
+import InPaoNews from './InPaoNews';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,6 +26,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Gazzetta News" component={GazzettaNews} />
       <Drawer.Screen name="FootballRoster" component={FootballRoster} />
       <Drawer.Screen name="Leoforos1908 News" component={Leoforos1908News} />
+      <Drawer.Screen name="InPao News" component={InPaoNews} />
     </Drawer.Navigator>
   );
 };

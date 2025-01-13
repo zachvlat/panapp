@@ -24,6 +24,12 @@ const LatestNewsMenu = ({ navigation }) => {
             <Text style={{ color: '#eff8ef', fontSize: 14 }}>Sport24 News</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => navigation.navigate('InPao News')}
+            style={{ padding: 10 }}
+          >
+            <Text style={{ color: '#eff8ef', fontSize: 14 }}>InPao News</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => navigation.navigate('SDNA News')}
             style={{ padding: 10 }}
           >
