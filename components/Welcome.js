@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
-import logo from './assets/Web-IconKitchen-Output/web/icon-512.png';
+import logo from '../assets/Web-IconKitchen-Output/web/icon-512.png';
 
 const Welcome = () => {
   return (
