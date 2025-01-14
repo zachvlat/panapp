@@ -41,4 +41,3 @@ This project is licensed under the GNU General Public License v3.0. See the [LIC
 ## Contact
 
 For any inquiries or issues, please contact [zachvlat](https://github.com/zachvlat).
-```
