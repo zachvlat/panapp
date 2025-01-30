@@ -12,7 +12,7 @@ const Welcome = () => {
       />
       <View style={styles.webviewContainer}>
         <WebView 
-          source={{ uri: 'https://zachinvalidation.netlify.app/panapp' }} 
+          source={{ uri: 'https://zvcheats.netlify.app/panapp' }} 
           style={styles.webview} 
           setBuiltInZoomControls={false}
           directionalLockEnabled={false}
