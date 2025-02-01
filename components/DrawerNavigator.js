@@ -24,7 +24,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Sport24 News" component={Sport24News} />
       <Drawer.Screen name="SDNA News" component={SdnaNews} />
       <Drawer.Screen name="Gazzetta News" component={GazzettaNews} />
-      <Drawer.Screen name="FootballRoster" component={FootballRoster} />
+      <Drawer.Screen name="Football Team" component={FootballRoster} />
       <Drawer.Screen name="Leoforos1908 News" component={Leoforos1908News} />
       <Drawer.Screen name="InPao News" component={InPaoNews} />
     </Drawer.Navigator>
