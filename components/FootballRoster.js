@@ -18,7 +18,7 @@ const FootballRoster = () => {
           acc[player.position].push(player);
           return acc;
         }, {});
-        setData(groupedByPosition); // Store grouped data
+        setData(groupedByPosition);
         setLoading(false);
       })
       .catch((err) => {
@@ -59,7 +59,7 @@ const FootballRoster = () => {
         <View key={position}>
           <Text style={styles.positionHeader}>{position}</Text>
           <FlatList
-            data={data[position]} // Players in the current position
+            data={data[position]}
             renderItem={renderPlayer}
             keyExtractor={(item, index) => index.toString()}
           />
@@ -71,12 +71,12 @@ const FootballRoster = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 10,
   },
   positionHeader: {
     fontSize: 20,
     fontWeight: 'bold',
-    color:'white',
+    color:'darkgreen',
     marginVertical: 10,
   },
   playerItem: {

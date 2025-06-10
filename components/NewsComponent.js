@@ -1,51 +1,80 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ScrollView, ActivityIndicator, StyleSheet, Pressable, Linking } from 'react-native';
-import xml2js from 'react-native-xml2js';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+  StyleSheet,
+  Pressable,
+  Linking,
+} from 'react-native';
+import { XMLParser } from 'fast-xml-parser';
 
-const NewsComponent = ({ rssUrl, filterKeyword, parseItem }) => {
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: '@_',
+});
+
+const NewsComponent = ({ rssUrls, filterKeyword, parseItem }) => {
   const [newsItems, setNewsItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchNews();
+    fetchAllFeeds();
   }, []);
 
-  const fetchNews = async () => {
+  const fetchAllFeeds = async () => {
     try {
-      const response = await fetch(rssUrl);
-      const xmlText = await response.text();
-      
-      xml2js.parseString(xmlText, (err, result) => {
-        if (err) {
-          console.error('Failed to parse XML', err);
-          return;
+      const allItems = [];
+
+      for (const url of rssUrls) {
+        try {
+          const res = await fetch(url);
+          const xml = await res.text();
+          const json = parser.parse(xml);
+
+          const items = json?.rss?.channel?.item || [];
+          const filtered = filterKeyword
+            ? items.filter((i) =>
+                i.title?.toLowerCase().includes(filterKeyword.toLowerCase())
+              )
+            : items;
+
+          const parsed = filtered.map(parseItem);
+          allItems.push(...parsed);
+        } catch (feedErr) {
+          console.warn(`Feed failed: ${url}`, feedErr);
         }
+      }
 
-        const items = result.rss.channel[0].item;
-        const filteredItems = filterKeyword
-          ? items.filter((item) => item.title[0].includes(filterKeyword))
-          : items;
-
-        const mappedItems = filteredItems.map(parseItem);
-
-        setNewsItems(mappedItems);
-        setLoading(false);
-      });
-    } catch (error) {
-      console.error('Failed to fetch news', error);
+      setNewsItems(allItems);
+    } catch (err) {
+      console.error('Failed to fetch feeds', err);
+    } finally {
       setLoading(false);
     }
   };
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#00ff88" />
+      </View>
+    );
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {newsItems.map((news, index) => (
-        <Pressable key={index} style={styles.newsItem} onPress={() => Linking.openURL(news.link)}>
-          {news.image && <Image source={{ uri: news.image }} style={styles.image} />}
+        <Pressable
+          key={index}
+          style={styles.newsItem}
+          onPress={() => Linking.openURL(news.link)}
+        >
+          {news.image && (
+            <Image source={{ uri: news.image }} style={styles.image} />
+          )}
           <Text style={styles.title}>{news.title}</Text>
           <Text style={styles.description}>{news.description}</Text>
         </Pressable>
@@ -55,16 +84,34 @@ const NewsComponent = ({ rssUrl, filterKeyword, parseItem }) => {
 };
 
 const styles = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
   container: {
     padding: 16,
-    backgroundColor: '#124728',
   },
   newsItem: {
     marginBottom: 24,
+    backgroundColor: '#1d5e38',
+    padding: 12,
+    borderRadius: 12,
+      // Shadow styles for iOS
+  shadowColor: '#a8e6cf', // Light green shadow color
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.5,
+  shadowRadius: 4,
+  // Elevation for Android
+  elevation: 5,
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 180,
     borderRadius: 8,
     marginBottom: 8,
   },
@@ -75,7 +122,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   description: {
-    fontSize: 16,
+    fontSize: 15,
     color: 'white',
   },
 });
