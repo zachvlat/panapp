@@ -8,7 +8,7 @@ const FootballRoster = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://zvcheats.netlify.app/footballroster.json')
+    axios.get('file:///C:/Users/zaxos/Downloads/footballroster.json')
       .then((response) => {
         // Group players by position
         const groupedByPosition = response.data.reduce((acc, player) => {
@@ -47,6 +47,10 @@ const FootballRoster = () => {
     <View style={styles.playerItem}>
       <Text style={styles.playerName}>{item.name}</Text>
       <Text style={styles.playerDetail}>Position: {item.position}</Text>
+      <Text style={styles.playerDetail}>Height: {item.height}</Text>
+      <Text style={styles.playerDetail}>Foot: {item.foot}</Text>
+      <Text style={styles.playerDetail}>Contract Started: {item.contractStarted}</Text>
+      <Text style={styles.playerDetail}>Contract Ends: {item.contractEnds}</Text>
       <Text style={styles.playerDetail}>Age: {item.age}</Text>
       <Text style={styles.playerDetail}>Country: {item.country}</Text>
       <Text style={styles.playerDetail}>Value: {item.value}</Text>
