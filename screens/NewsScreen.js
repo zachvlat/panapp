@@ -10,12 +10,25 @@ const rssFeeds = [
   'https://corsproxy.io/?https://leoforos1908.gr/?feed=rss2',
 ];
 
-const parseItem = (item) => ({
-  title: item.title,
-  description: item.description,
-  link: item.link,
-  image: item['media:content']?.['@_url'] || null,
-});
+const parseItem = (item) => {
+  const html = item['content:encoded'] || item.description || '';
+
+  // Match image src
+  const imageMatch = html.match(/<img[^>]+src="([^">]+)"/);
+  const image = imageMatch ? imageMatch[1] : null;
+
+  // Match first paragraph
+  const textMatch = html.match(/<p>(.*?)<\/p>/);
+  const description = textMatch ? textMatch[1] : item.description;
+
+  return {
+    title: item.title,
+    description,
+    link: item.link,
+    image,
+    pubDate: new Date(item.pubDate || item.pubdate || item['dc:date'] || null),
+  };
+};
 
 export default function DetailScreen({ navigation }) {
   const { colors } = useTheme();

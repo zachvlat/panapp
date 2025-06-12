@@ -24,37 +24,43 @@ const NewsComponent = ({ rssUrls, filterKeyword, parseItem }) => {
     fetchAllFeeds();
   }, []);
 
-  const fetchAllFeeds = async () => {
-    try {
-      const allItems = [];
+const fetchAllFeeds = async () => {
+  try {
+    const allItems = [];
 
-      for (const url of rssUrls) {
-        try {
-          const res = await fetch(url);
-          const xml = await res.text();
-          const json = parser.parse(xml);
+    for (const url of rssUrls) {
+      try {
+        const res = await fetch(url);
+        const xml = await res.text();
+        const json = parser.parse(xml);
 
-          const items = json?.rss?.channel?.item || [];
-          const filtered = filterKeyword
-            ? items.filter((i) =>
-                i.title?.toLowerCase().includes(filterKeyword.toLowerCase())
-              )
-            : items;
+        const items = json?.rss?.channel?.item || [];
+        const filtered = filterKeyword
+          ? items.filter((i) =>
+              i.title?.toLowerCase().includes(filterKeyword.toLowerCase())
+            )
+          : items;
 
-          const parsed = filtered.map(parseItem);
-          allItems.push(...parsed);
-        } catch (feedErr) {
-          console.warn(`Feed failed: ${url}`, feedErr);
-        }
+        const parsed = filtered
+          .map(parseItem)
+          .filter(item => item.pubDate instanceof Date && !isNaN(item.pubDate)); // Ensure valid dates
+
+        allItems.push(...parsed);
+      } catch (feedErr) {
+        console.warn(`Feed failed: ${url}`, feedErr);
       }
-
-      setNewsItems(allItems);
-    } catch (err) {
-      console.error('Failed to fetch feeds', err);
-    } finally {
-      setLoading(false);
     }
-  };
+
+    // ✅ Sort all items by pubDate descending (latest first)
+    const sorted = allItems.sort((a, b) => b.pubDate - a.pubDate);
+    setNewsItems(sorted);
+  } catch (err) {
+    console.error('Failed to fetch feeds', err);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   if (loading) {
     return (

@@ -11,6 +11,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './screens/HomeScreen';
 import NewsScreen from './screens/NewsScreen';
 import RosterScreen from './screens/RosterScreen';
+import OfficialScreen from './screens/OfficialScreen'
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +44,15 @@ function TabNavigator(theme) {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="newspaper" color={color} size={size} />
+          ),
+        }}
+      />
+            <Tab.Screen
+        name="PAO FC Official"
+        component={OfficialScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="soccer-field" color={color} size={size} />
           ),
         }}
       />
