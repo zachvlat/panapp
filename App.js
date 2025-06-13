@@ -1,10 +1,7 @@
 import React from 'react';
 import { useColorScheme } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import {
-  expressiveLightTheme,
-  expressiveDarkTheme,
-} from './theme';
+import { expressiveLightTheme, expressiveDarkTheme } from './theme';
 import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -30,7 +27,7 @@ function TabNavigator(theme) {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Αρχική"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -39,7 +36,7 @@ function TabNavigator(theme) {
         }}
       />
       <Tab.Screen
-        name="News"
+        name="Νέα"
         component={NewsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -48,16 +45,16 @@ function TabNavigator(theme) {
         }}
       />
             <Tab.Screen
-        name="PAO FC Official"
+        name="ΠΑΕ Νέα"
         component={OfficialScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="soccer-field" color={color} size={size} />
+            <MaterialCommunityIcons name="soccer" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="Roster"
+        name="Ρόστερ"
         component={RosterScreen}
         options={{
           tabBarIcon: ({ color, size }) => (

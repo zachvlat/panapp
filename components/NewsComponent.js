@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  ActivityIndicator,
-  StyleSheet,
-  Pressable,
-  Linking,
-} from 'react-native';
+import { View, Text, Image, ScrollView, ActivityIndicator, StyleSheet, Pressable, Linking } from 'react-native';
 import { XMLParser } from 'fast-xml-parser';
 
 const parser = new XMLParser({
@@ -104,15 +95,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#1d5e38',
     padding: 12,
     borderRadius: 12,
-      // Shadow styles for iOS
-  shadowColor: '#a8e6cf', // Light green shadow color
-  shadowOffset: {
+    shadowColor: '#a8e6cf',
+    shadowOffset: {
     width: 0,
     height: 2,
   },
   shadowOpacity: 0.5,
   shadowRadius: 4,
-  // Elevation for Android
   elevation: 5,
   },
   image: {

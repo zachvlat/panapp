@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { View, StyleSheet, Text } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import FootballRoster from '../components/FootballRoster'
 
 export default function SettingsScreen() {
@@ -8,6 +8,9 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.container}>
+      <Text style={[styles.title, { color: colors.primary }]}>
+        Ομάδα Παναθηναϊκού
+      </Text>
       <FootballRoster></FootballRoster>
     </View>
   );
@@ -22,6 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 24, 
     fontWeight: 'bold',
     marginBottom: 24,
+    textAlign: 'center',
   },
   text: {
     fontSize: 16,

@@ -7,13 +7,13 @@ export const expressiveLightTheme = {
   ...DefaultLightTheme,
   colors: {
     ...DefaultLightTheme.colors,
-    primary: '#4CAF50', // Green
-    secondary: '#A5D6A7', // Light Green
-    tertiary: '#C8E6C9', // Light Green
-    surface: '#FFFFFF', // White
-    background: '#F1F8E9', // Light Green Background
+    primary: '#4CAF50',
+    secondary: '#A5D6A7',
+    tertiary: '#C8E6C9',
+    surface: '#FFFFFF',
+    background: '#F1F8E9',
     elevation: {
-      level1: '#E8F5E9', // Light Green Elevation
+      level1: '#E8F5E9',
     },
   },
   roundness: 24,
@@ -23,13 +23,13 @@ export const expressiveDarkTheme = {
   ...DefaultDarkTheme,
   colors: {
     ...DefaultDarkTheme.colors,
-    primary: '#4d774f', // Light Green
-    secondary: '#A5D6A7', // Light Green
-    tertiary: '#C8E6C9', // Light Green
-    surface: '#121212', // Dark Background
-    background: '#1B1B1B', // Dark Background
+    primary: '#4d774f',
+    secondary: '#A5D6A7',
+    tertiary: '#C8E6C9',
+    surface: '#121212',
+    background: '#1B1B1B',
     elevation: {
-      level1: '#2E7D32', // Dark Green Elevation
+      level1: '#2E7D32',
     },
   },
   roundness: 24,

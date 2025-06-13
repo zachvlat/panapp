@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { Text, Button, useTheme } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import NewsComponent from '../components/NewsComponent';
 
 const rssFeeds = [
@@ -36,7 +36,7 @@ export default function DetailScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <Text style={[styles.title, { color: colors.primary }]}>
-        Panathinaikos Latest News
+        Τελευταία Νέα Παναθηναϊκού
       </Text>
 
       <NewsComponent

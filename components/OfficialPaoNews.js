@@ -32,7 +32,7 @@ const OfficialPaoNews = () => {
   }, []);
 
   const formatSlugAsTitle = (url) => {
-    const slug = url.split('/').filter(Boolean).pop(); // last non-empty segment
+    const slug = url.split('/').filter(Boolean).pop();
     const words = slug.replace(/-/g, ' ');
     return words.charAt(0).toUpperCase() + words.slice(1);
   };
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: 'rgb(29, 94, 56)',
     minHeight: '100%',
+    borderRadius: 8,
   },
   linkContainer: {
     marginBottom: 16,

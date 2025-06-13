@@ -8,20 +8,24 @@ export default function OfficialScreen() {
 
   return (
     <View style={styles.container}>
+      <Text style={[styles.title, { color: colors.primary }]}>
+        Τελευταία Νέα ΠΑΕ Παναθηναϊκού
+      </Text>
       <OfficialPaoNews></OfficialPaoNews>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
+  container: {
+    flex: 1,
     padding: 24,
   },
-  title: { 
-    fontSize: 24, 
+  title: {
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 24,
+    textAlign: 'center',
   },
   text: {
     fontSize: 16,
