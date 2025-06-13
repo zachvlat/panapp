@@ -1,4 +1,3 @@
-// components/NewsComponent.js
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -17,7 +16,32 @@ const parser = new XMLParser({
   attributeNamePrefix: '@_',
 });
 
-const NewsComponent = ({ rssUrls, filterKeywords = [], parseItem, layout = 'list' }) => {
+// default parsing logic
+const defaultParseItem = (item, source = '') => {
+  const html = item['content:encoded'] || item.description || '';
+
+  const imageMatch = html.match(/<img[^>]+src="([^">]+)"/);
+  const image = imageMatch ? imageMatch[1] : null;
+
+  const textMatch = html.match(/<p>(.*?)<\/p>/);
+  const description = textMatch ? textMatch[1] : item.description;
+
+  return {
+    title: item.title,
+    description,
+    link: item.link,
+    image,
+    source,
+    pubDate: new Date(item.pubDate || item.pubdate || item['dc:date'] || null),
+  };
+};
+
+const NewsComponent = ({
+  rssUrls,
+  filterKeywords = [],
+  parseItem = defaultParseItem,
+  layout = 'list',
+}) => {
   const [newsItems, setNewsItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -87,32 +111,31 @@ const NewsComponent = ({ rssUrls, filterKeywords = [], parseItem, layout = 'list
   }
 
   if (layout === 'carousel') {
-  const carouselItems = newsItems.filter((item) => item.image).slice(0, 5); // Show only news with images
+    const carouselItems = newsItems.filter((item) => item.image).slice(0, 5);
 
-  return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ paddingHorizontal: 0 }}
-      style={{ marginVertical: 12 }}
-    >
-      {carouselItems.map((news, index) => (
-        <Pressable
-          key={index}
-          style={carouselStyles.card}
-          onPress={() => Linking.openURL(news.link)}
-        >
-          <Image source={{ uri: news.image }} style={carouselStyles.image} />
-          <View style={carouselStyles.overlay}>
-            <Text numberOfLines={2} style={carouselStyles.title}>
-              {news.title}
-            </Text>
-          </View>
-        </Pressable>
-      ))}
-    </ScrollView>
-  );
-}
+    return (
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ marginVertical: 12 }}
+      >
+        {carouselItems.map((news, index) => (
+          <Pressable
+            key={index}
+            style={carouselStyles.card}
+            onPress={() => Linking.openURL(news.link)}
+          >
+            <Image source={{ uri: news.image }} style={carouselStyles.image} />
+            <View style={carouselStyles.overlay}>
+              <Text numberOfLines={2} style={carouselStyles.title}>
+                {news.title}
+              </Text>
+            </View>
+          </Pressable>
+        ))}
+      </ScrollView>
+    );
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -204,33 +227,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: 'white',
     fontWeight: 'bold',
-  },
-  carouselContainer: {
-    paddingVertical: 16,
-  },
-  carouselCard: {
-    width: 300,
-    marginHorizontal: 10,
-    borderRadius: 12,
-    overflow: 'hidden',
-    backgroundColor: '#000',
-  },
-  carouselImage: {
-    width: '100%',
-    height: 180,
-  },
-  carouselOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    backgroundColor: 'rgba(0, 100, 0, 0.7)',
-    padding: 10,
-  },
-  carouselTitle: {
-    color: '#b6fcb6',
-    fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
   },
 });
 
