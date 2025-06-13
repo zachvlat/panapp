@@ -10,14 +10,12 @@ const rssFeeds = [
   'https://corsproxy.io/?https://leoforos1908.gr/?feed=rss2',
 ];
 
-const parseItem = (item) => {
+const parseItem = (item, source = '') => {
   const html = item['content:encoded'] || item.description || '';
 
-  // Match image src
   const imageMatch = html.match(/<img[^>]+src="([^">]+)"/);
   const image = imageMatch ? imageMatch[1] : null;
 
-  // Match first paragraph
   const textMatch = html.match(/<p>(.*?)<\/p>/);
   const description = textMatch ? textMatch[1] : item.description;
 
@@ -26,6 +24,7 @@ const parseItem = (item) => {
     description,
     link: item.link,
     image,
+    source,
     pubDate: new Date(item.pubDate || item.pubdate || item['dc:date'] || null),
   };
 };
@@ -41,7 +40,7 @@ export default function DetailScreen({ navigation }) {
 
       <NewsComponent
         rssUrls={rssFeeds}
-        filterKeywords={["Παναθηναϊκός", "ΠΑΟ", "Παναθηναϊκού"]}
+        filterKeywords={["Παναθηναϊκός", "ΠΑΟ", "Παναθηναϊκού", "Παναθηναϊκό"]}
         parseItem={parseItem}
       />
     </ScrollView>
