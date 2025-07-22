@@ -36,12 +36,15 @@ const defaultParseItem = (item, source = '') => {
   };
 };
 
-const NewsComponent = ({
-  rssUrls,
-  filterKeywords = [],
-  parseItem = defaultParseItem,
-  layout = 'list',
-}) => {
+const NewsComponent = React.forwardRef((
+  {
+    rssUrls,
+    filterKeywords = [],
+    parseItem = defaultParseItem,
+    layout = 'list',
+  },
+  ref
+) => {
   const [newsItems, setNewsItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -50,6 +53,7 @@ const NewsComponent = ({
   }, []);
 
   const fetchAllFeeds = async () => {
+    setLoading(true);
     try {
       const allItems = [];
 
@@ -101,6 +105,10 @@ const NewsComponent = ({
       setLoading(false);
     }
   };
+
+  React.useImperativeHandle(ref, () => ({
+    fetchAllFeeds,
+  }));
 
   if (loading) {
     return (
@@ -155,7 +163,7 @@ const NewsComponent = ({
       ))}
     </ScrollView>
   );
-};
+});
 
 const carouselStyles = StyleSheet.create({
   card: {

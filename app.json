@@ -2,7 +2,7 @@
   "expo": {
     "name": "Green Portal",
     "slug": "panapp",
-    "version": "4.7.1",
+    "version": "4.8.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -18,7 +18,7 @@
       }
     },
     "android": {
-      "versionCode": 4,
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
         "backgroundImage": "./assets/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_background.png",

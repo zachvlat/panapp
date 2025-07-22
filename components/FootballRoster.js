@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View, Text, ActivityIndicator, FlatList } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator, FlatList, Image } from 'react-native';
 import axios from 'axios';
 
 const FootballRoster = () => {
@@ -45,15 +45,18 @@ const FootballRoster = () => {
 
   const renderPlayer = ({ item }) => (
     <View style={styles.playerItem}>
-      <Text style={styles.playerName}>{item.name}</Text>
-      <Text style={styles.playerDetail}>Position: {item.position}</Text>
-      <Text style={styles.playerDetail}>Height: {item.height}</Text>
-      <Text style={styles.playerDetail}>Foot: {item.foot}</Text>
-      <Text style={styles.playerDetail}>Contract Started: {item.contractStarted}</Text>
-      <Text style={styles.playerDetail}>Contract Ends: {item.contractEnds}</Text>
-      <Text style={styles.playerDetail}>Age: {item.age}</Text>
-      <Text style={styles.playerDetail}>Country: {item.country}</Text>
-      <Text style={styles.playerDetail}>Value: {item.value}</Text>
+      <Image source={{ uri: item.imageUrl }} style={styles.playerImage} resizeMode="contain" />
+      <View style={styles.playerInfo}>
+        <Text style={styles.playerName}>{item.name}</Text>
+        <Text style={styles.playerDetail}>Position: {item.position}</Text>
+        <Text style={styles.playerDetail}>Height: {item.height}</Text>
+        <Text style={styles.playerDetail}>Foot: {item.foot}</Text>
+        <Text style={styles.playerDetail}>Contract Started: {item.contractStarted}</Text>
+        <Text style={styles.playerDetail}>Contract Ends: {item.contractEnds}</Text>
+        <Text style={styles.playerDetail}>Age: {item.age}</Text>
+        <Text style={styles.playerDetail}>Country: {item.country}</Text>
+        <Text style={styles.playerDetail}>Value: {item.value}</Text>
+      </View>
     </View>
   );
 
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   playerItem: {
+    flexDirection: 'row',
     padding: 5,
     marginBottom: 10,
     backgroundColor: '#f9f9f9',
@@ -109,6 +113,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  playerImage: {
+    width: 100,
+    height: 100,
+    marginRight: 10,
+  },
+  playerInfo: {
+    flex: 1,
   },
 });
 
