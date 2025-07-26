@@ -167,8 +167,8 @@ const NewsComponent = React.forwardRef((
 
 const carouselStyles = StyleSheet.create({
   card: {
-    width: 300,
-    height: 160,
+    width: 350,
+    height: 200,
     borderRadius: 12,
     marginRight: 12,
     overflow: 'hidden',
