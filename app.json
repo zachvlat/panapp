@@ -2,7 +2,7 @@
   "expo": {
     "name": "Green Portal",
     "slug": "panapp",
-    "version": "5.0.1",
+    "version": "5.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -14,8 +14,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.zachvlat.panapp",
-      "config": {
-      }
+      "config": {}
     },
     "android": {
       "versionCode": 6,
@@ -34,6 +33,9 @@
       "eas": {
         "projectId": "7133d611-b207-43ac-ad3d-7f5fa0438988"
       }
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

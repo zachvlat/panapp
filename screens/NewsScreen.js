@@ -5,9 +5,9 @@ import NewsComponent from '../components/NewsComponent';
 
 const rssFeeds = [
   'https://www.gazzetta.gr/teams/panathinaikos/rss',
-  'https://corsproxy.io/?https://www.inpao.gr/feed/',
-  'https://corsproxy.io/?https://www.sdna.gr/latest.xml',
-  'https://corsproxy.io/?https://leoforos1908.gr/?feed=rss2',
+  'https://www.inpao.gr/feed/',
+  'https://www.sdna.gr/latest.xml',
+  'https://leoforos1908.gr/?feed=rss2',
 ];
 
 export default function NewsScreen() {

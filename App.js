@@ -1,5 +1,5 @@
 import React from 'react';
-import { useColorScheme } from 'react-native';
+import { useColorScheme, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { expressiveLightTheme, expressiveDarkTheme } from './theme';
 import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
@@ -8,6 +8,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './screens/HomeScreen';
 import NewsScreen from './screens/NewsScreen';
 import RosterScreen from './screens/RosterScreen';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import TopBar from './components/TopBar';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,13 +17,15 @@ function TabNavigator(theme) {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: theme.colors.primary },
+        headerShown: false,
+        headerStyle: { backgroundColor: theme.colors.surface },
         headerTintColor: '#fff',
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.secondary,
         tabBarStyle: {
           borderTopWidth: 0,
           elevation: 0,
+          backgroundColor: theme.colors.surface,
         },
       }}
     >
@@ -56,16 +60,28 @@ function TabNavigator(theme) {
   );
 }
 
-export default function App() {
+function AppContent() {
   const colorScheme = useColorScheme();
   const theme = colorScheme === 'dark' ? expressiveDarkTheme : expressiveLightTheme;
   const navTheme = colorScheme === 'dark' ? NavigationDarkTheme : NavigationDefaultTheme;
+  const insets = useSafeAreaInsets();
 
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer theme={{ ...navTheme, colors: { ...navTheme.colors, background: theme.colors.background } }}>
-        {TabNavigator(theme)}
-      </NavigationContainer>
+      <View style={{ flex: 1, paddingTop: insets.top, backgroundColor: theme.colors.background }}>
+        <TopBar />
+        <NavigationContainer theme={{ ...navTheme, colors: { ...navTheme.colors, background: theme.colors.background } }}>
+          {TabNavigator(theme)}
+        </NavigationContainer>
+      </View>
     </PaperProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <AppContent />
+    </SafeAreaProvider>
   );
 }
