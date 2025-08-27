@@ -8,6 +8,7 @@ const rssFeeds = [
   'https://www.inpao.gr/feed/',
   'https://www.sdna.gr/latest.xml',
   'https://leoforos1908.gr/?feed=rss2',
+  'https://prasinoforos.gr/feed/',
 ];
 
 export default function NewsScreen() {
@@ -29,7 +30,7 @@ export default function NewsScreen() {
       <NewsComponent
         ref={newsComponentRef}
         rssUrls={rssFeeds}
-        filterKeywords={['Παναθηναϊκός', 'ΠΑΟ', 'Παναθηναϊκού', 'Παναθηναϊκό']}
+        filterKeywords={['Παναθηναϊκός', 'Παναθηναϊκού', 'Παναθηναϊκό']}
       />
 
       <FAB

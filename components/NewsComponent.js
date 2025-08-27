@@ -16,12 +16,19 @@ const parser = new XMLParser({
   attributeNamePrefix: '@_',
 });
 
-// default parsing logic
+// improved parsing logic with better image extraction
 const defaultParseItem = (item, source = '') => {
   const html = item['content:encoded'] || item.description || '';
 
-  const imageMatch = html.match(/<img[^>]+src="([^">]+)"/);
-  const image = imageMatch ? imageMatch[1] : null;
+  let image = null;
+  if (item.enclosure?.['@_url']) {
+    image = item.enclosure['@_url'];
+  } else if (item['media:content']?.['@_url']) {
+    image = item['media:content']['@_url'];
+  } else {
+    const imageMatch = html.match(/<img[^>]+src="([^">]+)"/);
+    image = imageMatch ? imageMatch[1] : null;
+  }
 
   const textMatch = html.match(/<p>(.*?)<\/p>/);
   const description = textMatch ? textMatch[1] : item.description;
@@ -42,6 +49,8 @@ const NewsComponent = React.forwardRef((
     filterKeywords = [],
     parseItem = defaultParseItem,
     layout = 'list',
+    onNewsLoaded,
+    featured, // 🔥 new prop so we can skip the featured article
   },
   ref
 ) => {
@@ -62,6 +71,7 @@ const NewsComponent = React.forwardRef((
         if (url.includes('inpao')) return 'InPao';
         if (url.includes('sdna')) return 'SDNA';
         if (url.includes('leoforos')) return 'Leoforos1908';
+        if (url.includes('prasinoforos')) return 'Prasinoforos';
         return 'Άγνωστη Πηγή';
       };
 
@@ -99,6 +109,10 @@ const NewsComponent = React.forwardRef((
 
       const sorted = allItems.sort((a, b) => b.pubDate - a.pubDate);
       setNewsItems(sorted);
+
+      if (onNewsLoaded) {
+        onNewsLoaded(sorted);
+      }
     } catch (err) {
       console.error('Failed to fetch feeds', err);
     } finally {
@@ -119,7 +133,10 @@ const NewsComponent = React.forwardRef((
   }
 
   if (layout === 'carousel') {
-    const carouselItems = newsItems.filter((item) => item.image).slice(0, 5);
+    // skip featured article
+    const carouselItems = newsItems
+      .filter((item) => item.image && (!featured || item.link !== featured.link))
+      .slice(0, 5);
 
     return (
       <ScrollView
@@ -145,9 +162,14 @@ const NewsComponent = React.forwardRef((
     );
   }
 
+  // list layout (skip featured here too)
+  const listItems = newsItems.filter(
+    (item) => !featured || item.link !== featured.link
+  );
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {newsItems.map((news, index) => (
+      {listItems.map((news, index) => (
         <Pressable
           key={index}
           style={styles.newsItem}

@@ -1,65 +1,106 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
-import NextMatches from '../components/NextMatches';
+import React, { useRef, useState } from 'react';
+import { View, StyleSheet, Image, Text, Pressable, Linking, ScrollView } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import NewsComponent from '../components/NewsComponent';
-import Logo from '../assets/pao.svg';
 
 export default function HomeScreen({ navigation }) {
   const { colors } = useTheme();
+  const newsRef = useRef(null);
+
+  const [featured, setFeatured] = useState(null);
 
   const rssFeeds = [
-  'https://www.gazzetta.gr/teams/panathinaikos/rss',
-  'https://corsproxy.io/?https://www.inpao.gr/feed/',
-  'https://corsproxy.io/?https://www.sdna.gr/latest.xml',
-  'https://corsproxy.io/?https://leoforos1908.gr/?feed=rss2',
-];
+    'https://www.gazzetta.gr/teams/panathinaikos/rss',
+    'https://corsproxy.io/?https://www.inpao.gr/feed/',
+    'https://corsproxy.io/?https://www.sdna.gr/latest.xml',
+    'https://corsproxy.io/?https://leoforos1908.gr/?feed=rss2',
+    'https://prasinoforos.gr/feed',
+  ];
 
-const parseItem = (item, source = '') => {
-  const html = item['content:encoded'] || item.description || '';
+  const parseItem = (item, source = '') => {
+    const html = item['content:encoded'] || item.description || '';
 
-  const imageMatch = html.match(/<img[^>]+src="([^">]+)"/);
-  const image = imageMatch ? imageMatch[1] : null;
+    // better image extraction
+    let image = null;
+    if (item.enclosure?.['@_url']) {
+      image = item.enclosure['@_url'];
+    } else if (item['media:content']?.['@_url']) {
+      image = item['media:content']['@_url'];
+    } else {
+      const imageMatch = html.match(/<img[^>]+src="([^">]+)"/);
+      image = imageMatch ? imageMatch[1] : null;
+    }
 
-  const textMatch = html.match(/<p>(.*?)<\/p>/);
-  const description = textMatch ? textMatch[1] : item.description;
+    const textMatch = html.match(/<p>(.*?)<\/p>/);
+    const description = textMatch ? textMatch[1] : item.description;
 
-  return {
-    title: item.title,
-    description,
-    link: item.link,
-    image,
-    source,
-    pubDate: new Date(item.pubDate || item.pubdate || item['dc:date'] || null),
+    return {
+      title: item.title,
+      description,
+      link: item.link,
+      image,
+      source,
+      pubDate: new Date(item.pubDate || item.pubdate || item['dc:date'] || null),
+    };
   };
-};
+
+  const handleNewsLoaded = (newsItems) => {
+    const firstWithImage = newsItems.find((item) => item.image);
+    setFeatured(firstWithImage || null);
+  };
 
   return (
-    <View style={styles.container}>
-      <Logo width={150} height={150} />
-      <Text style={[styles.title, { color: colors.primary }]}>
-        Green Portal
-      </Text>
-      {/* <NextMatches /> */}
+    <ScrollView contentContainerStyle={styles.container}>
+      {featured && (
+        <Pressable style={styles.featuredCard} onPress={() => Linking.openURL(featured.link)}>
+          <Image source={{ uri: featured.image }} style={styles.featuredImage} />
+          <View style={styles.featuredOverlay}>
+            <Text style={styles.featuredTitle}>{featured.title}</Text>
+          </View>
+        </Pressable>
+      )}
+
       <NewsComponent
+        ref={newsRef}
         rssUrls={rssFeeds}
-        filterKeywords={["Παναθηναϊκός", "ΠΑΟ", "Παναθηναϊκού", "Παναθηναϊκό"]}
+        filterKeywords={["Παναθηναϊκός", "Παναθηναϊκού", "Παναθηναϊκό"]}
         parseItem={parseItem}
         layout="carousel"
+        onNewsLoaded={handleNewsLoaded}
+        featured={featured}
       />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    paddingVertical: 12,
   },
-  title: {
-    fontSize: 28,
+  featuredCard: {
+    width: '90%',
+    height: 550,
+    borderRadius: 16,
+    overflow: 'hidden',
+    alignSelf: 'center',
+    marginBottom: 16,
+    backgroundColor: '#000',
+  },
+  featuredImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  featuredOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: 'rgba(0, 100, 0, 0.6)',
+    padding: 12,
+  },
+  featuredTitle: {
+    color: '#d4fcdc',
     fontWeight: 'bold',
-    marginBottom: 24,
-    textAlign: 'center',
+    fontSize: 30,
   },
 });
