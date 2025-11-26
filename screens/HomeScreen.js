@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Image, Text, Pressable, Linking, ScrollView } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import NewsComponent from '../components/NewsComponent';
+import NextMatchCarousel from '../components/NextMatchCarousel';
 
 export default function HomeScreen({ navigation }) {
   const { colors } = useTheme();
@@ -51,6 +52,8 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <NextMatchCarousel />
+      
       {featured && (
         <Pressable style={styles.featuredCard} onPress={() => Linking.openURL(featured.link)}>
           <Image source={{ uri: featured.image }} style={styles.featuredImage} />
