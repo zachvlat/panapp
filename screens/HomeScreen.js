@@ -52,6 +52,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <NextMatchCarousel />
       
       {featured && (
         <Pressable style={styles.featuredCard} onPress={() => Linking.openURL(featured.link)}>
@@ -61,8 +62,17 @@ export default function HomeScreen({ navigation }) {
           </View>
         </Pressable>
       )}
-
-      <NextMatchCarousel />
+      
+      <NewsComponent
+        ref={newsRef}
+        rssUrls={rssFeeds}
+        filterKeywords={["Παναθηναϊκός", "Παναθηναϊκού", "Παναθηναϊκό"]}
+        parseItem={parseItem}
+        layout="carousel"
+        onNewsLoaded={handleNewsLoaded}
+        featured={featured}
+      />
+      
     </ScrollView>
   );
 }
