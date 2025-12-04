@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView, Dimensions, Image } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import { SvgUri } from 'react-native-svg';
 
 const { width } = Dimensions.get('window');
 
@@ -37,76 +38,61 @@ export default function NextMatchCarousel() {
   };
 
   const fetchFootballMatch = async () => {
-    const sources = [
-      'https://www.flashscore.com/team/panathinaikos/8k9y/fixtures/',
-      'https://www.flashscore.gr/omades/panathinaikos-8k9y/programma/',
-      'https://www.sofascore.com/team/football/panathinaikos/8315/fixtures'
-    ];
-
-    const proxyUrl = 'https://corsproxy.io/?';
-
-    for (const url of sources) {
-      try {
-        const response = await fetch(proxyUrl + encodeURIComponent(url));
-        const html = await response.text();
-        
-        if (html.toLowerCase().includes('panathinaikos')) {
-          const match = parseMatchData(html);
-          if (match) return match;
-        }
-      } catch (err) {
-        continue;
+    try {
+      const response = await fetch('https://www.gazzetta.gr/gztfeeds/program/team/557/sport/4');
+      const data = await response.json();
+      
+      if (data.match_1) {
+        const match = data.match_1;
+        return {
+          homeTeam: match.home_team_name,
+          awayTeam: match.away_team_name,
+          homeTeamLogo: 'https://www.gazzetta.gr' + match.home_team_logo,
+          awayTeamLogo: 'https://www.gazzetta.gr' + match.away_team_logo,
+          date: match.match_date,
+          time: match.match_time,
+          competition: match.league.name,
+          competitionLogo: 'https://www.gazzetta.gr' + match.league.logo,
+          matchUrl: 'https://www.gazzetta.gr' + match.match_url,
+          isHome: match.away_team_name === 'Παναθηναϊκός'
+        };
       }
+    } catch (err) {
+      console.error('Error fetching football match:', err);
     }
     
     return getManualFootballMatch();
   };
 
+
+
+
+
   const fetchBasketballMatch = async () => {
-    const sources = [
-      'https://www.flashscore.com/team/panathinaikos/0q0a/fixtures/',
-      'https://www.flashscore.gr/omades/panathinaikos-0q0a/programma/',
-      'https://www.sofascore.com/team/basketball/panathinaikos/9638/fixtures',
-      'https://www.euroleague.net/main/results?team=142'
-    ];
-
-    const proxyUrl = 'https://corsproxy.io/?';
-
-    for (const url of sources) {
-      try {
-        const response = await fetch(proxyUrl + encodeURIComponent(url));
-        const html = await response.text();
-        
-        if (html.toLowerCase().includes('panathinaikos')) {
-          const match = parseMatchData(html);
-          if (match) return { ...match, ...getBasketballDefaults() };
-        }
-      } catch (err) {
-        continue;
-      }
-    }
-    
-    return getManualBasketballMatch();
-  };
-
-  const parseMatchData = (html) => {
     try {
-      const pattern = /Panathinaikos[^<]*<\/[^>]*>[^<]*([^<]+)<\/[^>]*>[^<]*([0-9]{1,2}:[0-9]{2})/gi;
-      const matches = [...html.matchAll(pattern)];
+      const response = await fetch('https://www.gazzetta.gr/gztfeeds/program/team/557/sport/6');
+      const data = await response.json();
       
-      if (matches.length > 0) {
-        const [opponent, time] = matches[0].slice(1);
+      if (data.match_1) {
+        const match = data.match_1;
         return {
-          homeTeam: 'Panathinaikos',
-          awayTeam: opponent.trim(),
-          time: time.trim(),
-          date: '2024-11-28'
+          homeTeam: match.home_team_name,
+          awayTeam: match.away_team_name,
+          homeTeamLogo: 'https://www.gazzetta.gr' + match.home_team_logo,
+          awayTeamLogo: 'https://www.gazzetta.gr' + match.away_team_logo,
+          date: match.match_date,
+          time: match.match_time,
+          competition: match.league.name,
+          competitionLogo: 'https://www.gazzetta.gr' + match.league.logo,
+          matchUrl: 'https://www.gazzetta.gr' + match.match_url,
+          isHome: match.away_team_name === 'Παναθηναϊκός'
         };
       }
     } catch (err) {
-      return null;
+      console.error('Error fetching basketball match:', err);
     }
-    return null;
+    
+    return getManualBasketballMatch();
   };
 
   const getManualMatches = () => {
@@ -124,38 +110,41 @@ export default function NextMatchCarousel() {
 
   const getManualFootballMatch = () => {
     return {
-      homeTeam: 'Panathinaikos',
-      awayTeam: 'Sturm Graz',
-      date: '2024-11-28',
-      time: '19:00',
-      competition: 'Europa League',
-      venue: 'Olympic Stadium (Athens)',
-      isHome: true
+      homeTeam: 'ΑΕΛ Novibet',
+      awayTeam: 'Παναθηναϊκός',
+      homeTeamLogo: 'https://www.gazzetta.gr/sites/default/files/styles/live_participant_image/public/2025-09/ael-new-log.png?itok=aToy22TQ',
+      awayTeamLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/panathinaikos.svg',
+      date: '07-12-2025',
+      time: '17 : 30',
+      competition: 'Stoiximan Super League',
+      competitionLogo: 'https://www.gazzetta.gr/sites/default/files/styles/stats_team_logo/public/2024-09/greek-superleague-hub.png?itok=j1i3WSzt',
+      matchUrl: 'https://www.gazzetta.gr/football/stoiximan-super-league/ael-novibet-panathinaikos-07-12-2025',
+      isHome: false
     };
   };
 
   const getManualBasketballMatch = () => {
     return {
-      homeTeam: 'Panathinaikos',
-      awayTeam: 'Valencia',
-      date: '2024-11-29',
-      time: '19:30',
-      competition: 'EuroLeague',
-      venue: 'OAKA Indoor Hall',
-      isHome: true
-    };
-  };
-
-  const getBasketballDefaults = () => {
-    return {
-      competition: 'EuroLeague',
-      venue: 'OAKA Indoor Hall',
+      homeTeam: 'Παναθηναϊκός',
+      awayTeam: 'Ολυμπιακός',
+      homeTeamLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/panathinaikos.svg',
+      awayTeamLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/olympiakos.svg',
+      date: '08-12-2025',
+      time: '20 : 00',
+      competition: 'Basket League',
+      competitionLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/basket_league.svg',
+      matchUrl: 'https://www.gazzetta.gr/basket/basket-league/panathinaikos-olympiakos-08-12-2025',
       isHome: true
     };
   };
 
   const formatMatchDate = (dateString, timeString) => {
-    const date = new Date(dateString + ' ' + timeString);
+    // Convert DD-MM-YYYY to YYYY-MM-DD for proper date parsing
+    const [day, month, year] = dateString.split('-');
+    const cleanTime = timeString.replace(' : ', ':').trim();
+    const isoDate = `${year}-${month}-${day} ${cleanTime}`;
+    
+    const date = new Date(isoDate);
     const options = { 
       weekday: 'short', 
       month: 'short', 
@@ -197,12 +186,39 @@ export default function NextMatchCarousel() {
               </Text>
             </View>
             
-            <Text style={[styles.competition, { color: colors.onSurface }]}>
-              {match.competition}
-            </Text>
+            <View style={styles.competitionContainer}>
+              {match.competitionLogo && match.competitionLogo.endsWith('.svg') ? (
+                <SvgUri 
+                  uri={match.competitionLogo} 
+                  style={styles.competitionLogo}
+                />
+              ) : match.competitionLogo ? (
+                <Image 
+                  source={{ uri: match.competitionLogo }} 
+                  style={styles.competitionLogo}
+                  resizeMode="contain"
+                />
+              ) : null}
+              <Text style={[styles.competition, { color: colors.onSurface }]}>
+                {match.competition}
+              </Text>
+            </View>
             
             <View style={styles.teamsContainer}>
               <View style={styles.team}>
+                {match.homeTeamLogo && match.homeTeamLogo.endsWith('.svg') ? (
+                  <SvgUri 
+                    uri={match.homeTeamLogo} 
+                    style={match.homeTeamLogo.includes('panathinaikos') ? styles.panathinaikosLogo : styles.teamLogo}
+                  />
+                ) : match.homeTeamLogo ? (
+                  <Image 
+                    source={{ uri: match.homeTeamLogo }} 
+                    style={styles.teamLogo}
+                    resizeMode="contain"
+                    onError={(e) => console.log('Home team logo error:', e.nativeEvent.error)}
+                  />
+                ) : null}
                 <Text style={[styles.teamName, { color: colors.onSurface }]} numberOfLines={2}>
                   {match.homeTeam}
                 </Text>
@@ -211,6 +227,19 @@ export default function NextMatchCarousel() {
               <Text style={[styles.vs, { color: colors.primary }]}>VS</Text>
               
               <View style={styles.team}>
+                {match.awayTeamLogo && match.awayTeamLogo.endsWith('.svg') ? (
+                  <SvgUri 
+                    uri={match.awayTeamLogo} 
+                    style={match.awayTeamLogo.includes('panathinaikos') ? styles.panathinaikosLogo : styles.teamLogo}
+                  />
+                ) : match.awayTeamLogo ? (
+                  <Image 
+                    source={{ uri: match.awayTeamLogo }} 
+                    style={styles.teamLogo}
+                    resizeMode="contain"
+                    onError={(e) => console.log('Away team logo error:', e.nativeEvent.error)}
+                  />
+                ) : null}
                 <Text style={[styles.teamName, { color: colors.onSurface }]} numberOfLines={2}>
                   {match.awayTeam}
                 </Text>
@@ -219,10 +248,6 @@ export default function NextMatchCarousel() {
             
             <Text style={[styles.date, { color: colors.onSurface }]}>
               {formatMatchDate(match.date, match.time)}
-            </Text>
-            
-            <Text style={[styles.venue, { color: colors.onSurface }]} numberOfLines={1}>
-              📍 {match.venue}
             </Text>
             
             <View style={[styles.statusContainer, { backgroundColor: match.sport === 'Μπάσκετ' ? 'rgba(255, 140, 0, 0.1)' : 'rgba(0, 100, 0, 0.1)' }]}>
@@ -280,10 +305,20 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+  competitionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  competitionLogo: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
+  },
   competition: {
     fontSize: 14,
-    marginBottom: 12,
     fontStyle: 'italic',
+    flex: 1,
   },
   teamsContainer: {
     flexDirection: 'row',
@@ -294,6 +329,18 @@ const styles = StyleSheet.create({
   team: {
     alignItems: 'center',
     flex: 1,
+  },
+  teamLogo: {
+    width: 100,
+    height: 100,
+    marginBottom: 8,
+    backgroundColor: 'transparent',
+  },
+  panathinaikosLogo: {
+    width: 40,
+    height: 40,
+    marginBottom: 8,
+    backgroundColor: 'transparent',
   },
   teamName: {
     fontSize: 14,
@@ -311,11 +358,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     textAlign: 'center',
   },
-  venue: {
-    fontSize: 12,
-    marginTop: 4,
-    textAlign: 'center',
-  },
+
   statusContainer: {
     marginTop: 12,
     paddingHorizontal: 12,
