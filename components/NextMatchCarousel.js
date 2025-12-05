@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   teamsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginVertical: 16,
   },
   team: {
@@ -295,19 +295,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   teamLogo: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 70,
     marginBottom: 8,
     backgroundColor: 'transparent',
   },
   panathinaikosLogo: {
-    width: 40,
-    height: 40,
+    width: 70,
+    height: 70,
     marginBottom: 8,
     backgroundColor: 'transparent',
   },
   teamName: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
     textAlign: 'center',
   },
