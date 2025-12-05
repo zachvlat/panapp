@@ -108,36 +108,6 @@ export default function NextMatchCarousel() {
     ];
   };
 
-  const getManualFootballMatch = () => {
-    return {
-      homeTeam: 'ΑΕΛ Novibet',
-      awayTeam: 'Παναθηναϊκός',
-      homeTeamLogo: 'https://www.gazzetta.gr/sites/default/files/styles/live_participant_image/public/2025-09/ael-new-log.png?itok=aToy22TQ',
-      awayTeamLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/panathinaikos.svg',
-      date: '07-12-2025',
-      time: '17 : 30',
-      competition: 'Stoiximan Super League',
-      competitionLogo: 'https://www.gazzetta.gr/sites/default/files/styles/stats_team_logo/public/2024-09/greek-superleague-hub.png?itok=j1i3WSzt',
-      matchUrl: 'https://www.gazzetta.gr/football/stoiximan-super-league/ael-novibet-panathinaikos-07-12-2025',
-      isHome: false
-    };
-  };
-
-  const getManualBasketballMatch = () => {
-    return {
-      homeTeam: 'Παναθηναϊκός',
-      awayTeam: 'Ολυμπιακός',
-      homeTeamLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/panathinaikos.svg',
-      awayTeamLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/olympiakos.svg',
-      date: '08-12-2025',
-      time: '20 : 00',
-      competition: 'Basket League',
-      competitionLogo: 'https://www.gazzetta.gr/sites/default/files/2021-01/basket_league.svg',
-      matchUrl: 'https://www.gazzetta.gr/basket/basket-league/panathinaikos-olympiakos-08-12-2025',
-      isHome: true
-    };
-  };
-
   const formatMatchDate = (dateString, timeString) => {
     // Convert DD-MM-YYYY to YYYY-MM-DD for proper date parsing
     const [day, month, year] = dateString.split('-');
@@ -249,12 +219,6 @@ export default function NextMatchCarousel() {
             <Text style={[styles.date, { color: colors.onSurface }]}>
               {formatMatchDate(match.date, match.time)}
             </Text>
-            
-            <View style={[styles.statusContainer, { backgroundColor: match.sport === 'Μπάσκετ' ? 'rgba(255, 140, 0, 0.1)' : 'rgba(0, 100, 0, 0.1)' }]}>
-              <Text style={[styles.status, { color: match.sport === 'Μπάσκετ' ? '#ff8c00' : colors.primary }]}>
-                {match.isHome ? 'Εντός έδρας' : 'Εκτός έδρας'}
-              </Text>
-            </View>
           </View>
         ))}
       </ScrollView>
