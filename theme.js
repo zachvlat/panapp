@@ -12,6 +12,7 @@ export const expressiveLightTheme = {
     tertiary: '#C8E6C9',
     surface: '#1E2F1A',
     background: '#162211',
+    onSurface: '#FFFFFF',
     elevation: {
       level1: '#E8F5E9',
     },
@@ -28,6 +29,7 @@ export const expressiveDarkTheme = {
     tertiary: '#C8E6C9',
     surface: '#1E2F1A',
     background: '#162211',
+    onSurface: '#FFFFFF',
     elevation: {
       level1: '#2E7D32',
     },
