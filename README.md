@@ -1,7 +1,7 @@
 
 # Green Portal
 
-PanApp is an experimental mobile application focused on providing the latest news and updates about the Panathinaikos team. The app aggregates news from various sources and displays the team's roster.
+Green Portal is an experimental mobile application focused on providing the latest news and updates about the Panathinaikos team. The app aggregates news from various sources and displays the team's roster.
 
 ## Screenshots
 <img width="100" alt="image" src="https://github.com/user-attachments/assets/e3ac1225-5624-4bf5-b8b8-ca921ce5a60c" />
