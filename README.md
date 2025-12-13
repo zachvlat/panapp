@@ -22,7 +22,7 @@ Green Portal is an experimental mobile application focused on providing the late
 
 1. Go to the Safari app on your iPhone.
 
-2. Go to the website.
+2. Go to the [website](https://greenportal.netlify.app/).
 
 3. Tap the More button, then tap Share.
 
