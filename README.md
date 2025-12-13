@@ -1,5 +1,5 @@
 
-# PanApp
+# Green Portal
 
 PanApp is an experimental mobile application focused on providing the latest news and updates about the Panathinaikos team. The app aggregates news from various sources and displays the team's roster.
 
