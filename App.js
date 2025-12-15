@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './screens/HomeScreen';
 import NewsScreen from './screens/NewsScreen';
 import RosterScreen from './screens/RosterScreen';
+import StandingsScreen from './screens/StandingsScreen';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import TopBar from './components/TopBar';
 
@@ -53,6 +54,15 @@ function TabNavigator(theme) {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="soccer-field" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Βαθμολογίες"
+        component={StandingsScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="table" color={color} size={size} />
           ),
         }}
       />
