@@ -19,8 +19,8 @@ export default function RosterScreen() {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'football', title: 'Football' },
-    { key: 'basketball', title: 'Basketball' },
+    { key: 'football', title: 'Ποδόσφαιρο' },
+    { key: 'basketball', title: 'Μπάσκετ' },
   ]);
 
   return (
