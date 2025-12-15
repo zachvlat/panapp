@@ -45,32 +45,37 @@ export default function StandingsScreen() {
   };
 
   const renderTeam = (team) => {
-    const stats = {};
-    team.columns.forEach(col => Object.assign(stats, col));
+  const stats = {};
+  team.columns.forEach(col => Object.assign(stats, col));
 
-    return (
-      <DataTable.Row key={team.rank}>
-        <DataTable.Cell numeric style={styles.rankCell}>{team.rank}</DataTable.Cell>
-        <DataTable.Cell style={styles.teamCell}>
-          <View style={styles.teamContainer}>
-            <Image 
-              source={{ uri: `https://www.gazzetta.gr${team.team_logo}` }} 
-              style={styles.teamLogo}
-            />
-            <Text style={styles.teamName}>{team.team_name}</Text>
-          </View>
-        </DataTable.Cell>
-        <DataTable.Cell numeric>{stats.MP}</DataTable.Cell>
-        <DataTable.Cell numeric>{stats.W}</DataTable.Cell>
-        <DataTable.Cell numeric>{stats.D}</DataTable.Cell>
-        <DataTable.Cell numeric>{stats.L}</DataTable.Cell>
-        <DataTable.Cell numeric>{stats.GS}</DataTable.Cell>
-        <DataTable.Cell numeric>{stats.GA}</DataTable.Cell>
-        <DataTable.Cell numeric>{stats.GD}</DataTable.Cell>
-        <DataTable.Cell numeric><Text style={styles.points}>{stats.Pts}</Text></DataTable.Cell>
-      </DataTable.Row>
-    );
-  };
+  const isPanathinaikos = team.team_name === "Παναθηναϊκός";
+
+  return (
+    <DataTable.Row 
+      key={team.rank} 
+      style={[styles.row, isPanathinaikos && styles.panathinaikosRow]}>
+      <DataTable.Cell numeric style={styles.rankCell}>{team.rank}</DataTable.Cell>
+      <DataTable.Cell style={styles.teamCell}>
+        <View style={styles.teamContainer}>
+          <Image 
+            source={{ uri: `https://www.gazzetta.gr${team.team_logo}` }} 
+            style={styles.teamLogo}
+          />
+          <Text style={styles.teamName}>{team.team_name}</Text>
+        </View>
+      </DataTable.Cell>
+      <DataTable.Cell numeric>{stats.MP}</DataTable.Cell>
+      <DataTable.Cell numeric>{stats.W}</DataTable.Cell>
+      <DataTable.Cell numeric>{stats.D}</DataTable.Cell>
+      <DataTable.Cell numeric>{stats.L}</DataTable.Cell>
+      <DataTable.Cell numeric>{stats.GS}</DataTable.Cell>
+      <DataTable.Cell numeric>{stats.GA}</DataTable.Cell>
+      <DataTable.Cell numeric>{stats.GD}</DataTable.Cell>
+      <DataTable.Cell numeric><Text style={styles.points}>{stats.Pts}</Text></DataTable.Cell>
+    </DataTable.Row>
+  );
+};
+
 
   if (loading) {
     return (
@@ -158,4 +163,10 @@ const styles = StyleSheet.create({
     color: 'red',
     textAlign: 'center',
   },
+    row: {
+    backgroundColor: 'transparent',
+  },
+  panathinaikosRow: {
+    backgroundColor: 'darkgreen',
+  }
 });
