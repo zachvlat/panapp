@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Pressable,
   Linking,
+  Dimensions,
 } from 'react-native';
 import { XMLParser } from 'fast-xml-parser';
 
@@ -167,22 +168,60 @@ const NewsComponent = React.forwardRef((
     (item) => !featured || item.link !== featured.link
   );
 
+  // Determine number of columns based on screen width
+  const numColumns = screenWidth > 900 ? 3 : screenWidth > 600 ? 2 : 1;
+  const isMultiColumn = numColumns > 1;
+  
+  // Group items into rows for multi-column layout
+  const rows = [];
+  if (isMultiColumn) {
+    for (let i = 0; i < listItems.length; i += numColumns) {
+      rows.push(listItems.slice(i, i + numColumns));
+    }
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {listItems.map((news, index) => (
-        <Pressable
-          key={index}
-          style={styles.newsItem}
-          onPress={() => Linking.openURL(news.link)}
-        >
-          {news.image && (
-            <Image source={{ uri: news.image }} style={styles.image} />
-          )}
-          <Text style={styles.title}>{news.title}</Text>
-          <Text style={styles.description}>{news.description}</Text>
-          <Text style={styles.source}>Πηγή: {news.source}</Text>
-        </Pressable>
-      ))}
+      <View style={styles.contentWrapper}>
+        {isMultiColumn ? (
+          // Multi-column layout
+          rows.map((row, rowIndex) => (
+            <View key={rowIndex} style={styles.row}>
+              {row.map((news, colIndex) => (
+                <View key={colIndex} style={styles.column}>
+                  <Pressable
+                    style={styles.newsItem}
+                    onPress={() => Linking.openURL(news.link)}
+                  >
+                    {news.image && (
+                      <Image source={{ uri: news.image }} style={styles.image} />
+                    )}
+                    <Text style={styles.title}>{news.title}</Text>
+                    <Text style={styles.description}>{news.description}</Text>
+                    <Text style={styles.source}>Πηγή: {news.source}</Text>
+                  </Pressable>
+                </View>
+              ))}
+            </View>
+          ))
+        ) : (
+          // Single column layout
+          listItems.map((news, index) => (
+            <Pressable
+              key={index}
+              style={styles.newsItem}
+              onPress={() => Linking.openURL(news.link)}
+            >
+              {news.image && (
+                <Image source={{ uri: news.image }} style={styles.image} />
+              )}
+              <Text style={styles.title}>{news.title}</Text>
+              <Text style={styles.description}>{news.description}</Text>
+              <Text style={styles.source}>Πηγή: {news.source}</Text>
+            </Pressable>
+          ))
+        )}
+      </View>
     </ScrollView>
   );
 });
@@ -216,6 +255,8 @@ const carouselStyles = StyleSheet.create({
   },
 });
 
+const { width: screenWidth } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   loaderContainer: {
     flex: 1,
@@ -225,6 +266,19 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 16,
+  },
+  contentWrapper: {
+    alignSelf: 'center',
+    width: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  column: {
+    flex: 1,
+    marginHorizontal: 6,
   },
   newsItem: {
     marginBottom: 24,
@@ -239,22 +293,23 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 180,
+    height: 160,
     borderRadius: 8,
     marginBottom: 8,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 4,
   },
   description: {
-    fontSize: 15,
+    fontSize: 14,
     color: 'white',
+    lineHeight: 20,
   },
   source: {
-    fontSize: 13,
+    fontSize: 12,
     color: 'white',
     fontWeight: 'bold',
   },
