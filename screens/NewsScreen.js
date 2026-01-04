@@ -8,6 +8,8 @@ const rssFeeds = [
   'https://corsproxy.io/?https://www.inpao.gr/feed/',
   'https://corsproxy.io/?https://www.sdna.gr/latest.xml',
   'https://corsproxy.io/?https://leoforos1908.gr/?feed=rss2',
+  'https://corsproxy.io/?https://www.athletiko.gr/feed',
+  'https://corsproxy.io/https://www.onlypao.gr/feed/',
   'https://corsproxy.io/?https://prasinoforos.gr/feed/',
 ];
 
