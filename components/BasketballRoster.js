@@ -42,6 +42,24 @@ const BasketballRoster = () => {
     );
   }
 
+  // Calculate stats
+  const calculateStats = () => {
+    const allPlayers = Object.values(data).flat();
+    const greekPlayers = allPlayers.filter(player => 
+      player.nationality === 'Greece' || player.nationality === '🇬🇷 Greece' || player.nationality.includes('🇬🇷')
+    );
+    const greekPercentage = ((greekPlayers.length / allPlayers.length) * 100).toFixed(1);
+    
+    const ages = allPlayers.map(player => parseInt(player.age)).sort((a, b) => a - b);
+    const medianAge = ages.length % 2 === 0
+      ? ((ages[ages.length / 2 - 1] + ages[ages.length / 2]) / 2).toFixed(1)
+      : ages[Math.floor(ages.length / 2)];
+    
+    return { greekPercentage, medianAge, totalPlayers: allPlayers.length };
+  };
+
+  const stats = calculateStats();
+
   const renderPlayer = ({ item }) => (
     <View style={styles.playerItem}>
       <View style={styles.playerInfo}>
@@ -56,6 +74,20 @@ const BasketballRoster = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.statsContainer}>
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>{stats.totalPlayers}</Text>
+          <Text style={styles.statLabel}>Σύνολο παικτών</Text>
+        </View>
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>{stats.greekPercentage}%</Text>
+          <Text style={styles.statLabel}>Ποσοστό Ελλήνων</Text>
+        </View>
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>{stats.medianAge}</Text>
+          <Text style={styles.statLabel}>Μέση Ηλικία</Text>
+        </View>
+      </View>
       {Object.keys(data).map((position) => (
         <View key={position}>
           <Text style={styles.positionHeader}>{position}</Text>
@@ -73,6 +105,29 @@ const BasketballRoster = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#f0f0f0',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+    borderWidth: 2,
+    borderColor: 'darkgreen',
+  },
+  statItem: {
+    alignItems: 'center',
+  },
+  statNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'darkgreen',
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 5,
   },
   positionHeader: {
     fontSize: 20,
