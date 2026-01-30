@@ -8,7 +8,7 @@ const FootballRoster = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://corsproxy.io/?https://zvcheats.netlify.app/footballroster.json')
+    axios.get('https://zvcheats.netlify.app/footballroster.json')
       .then((response) => {
         // Group players by position
         const groupedByPosition = response.data.reduce((acc, player) => {
