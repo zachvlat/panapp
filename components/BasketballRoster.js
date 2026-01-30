@@ -8,7 +8,7 @@ const BasketballRoster = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://greenportal.netlify.app/basketballRoster.json')
+    axios.get('https://greenportal.netlify.app/basketballroster.json')
       .then((response) => {
         const groupedByPosition = response.data.reduce((acc, player) => {
           if (!acc[player.position]) {
