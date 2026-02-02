@@ -6,12 +6,12 @@ const footballRosterData = [
     "number": "40",
     "name": "Alban Lafont",
     "position": "Goalkeeper",
-    "country": "🇨🇮 Cote d'Ivoire",
+    "country": "Cote d'Ivoire",
     "height": "1,96m",
     "foot": "right",
     "contractStarted": "17/07/2025",
     "contractEnds": "30/06/2026",
-    "age": "26",
+    "age": "27",
     "value": "€3.00m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/357117-1756042679.png?lm=1"
   },
@@ -93,12 +93,12 @@ const footballRosterData = [
     "value": "€1.50m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/282199-1756042965.png?lm=1"
   },
-    {
+  {
     "number": "3",
-    "name": "Georgios Marios Katris",
+    "name": "Georgios Katris",
     "position": "Centre-Back",
     "country": "🇬🇷 Greece",
-    "height": "1,88m",
+    "height": "-",
     "foot": "right",
     "contractStarted": "01/07/2024",
     "contractEnds": "30/06/2028",
@@ -120,10 +120,23 @@ const footballRosterData = [
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/311178-1756043034.png?lm=1"
   },
   {
+    "number": "25",
+    "name": "Filip Mladenovic",
+    "position": "Left-Back",
+    "country": "🇷🇸 Serbia",
+    "height": "1,80m",
+    "foot": "left",
+    "contractStarted": "01/07/2023",
+    "contractEnds": "30/06/2026",
+    "age": "34",
+    "value": "€600k",
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/168063-1756043070.png?lm=1"
+  },
+  {
     "number": "2",
     "name": "Davide Calabria",
     "position": "Right-Back",
-    "country": "🇮🇹 Italy",
+    "country": "Italy",
     "height": "1,76m",
     "foot": "right",
     "contractStarted": "17/08/2025",
@@ -144,19 +157,6 @@ const footballRosterData = [
     "age": "33",
     "value": "€500k",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/436916-1756043172.png?lm=1"
-  },
-    {
-    "number": "-",
-    "name": "Iason Skarlatidis",
-    "position": "Right-Back",
-    "country": "🇬🇷 Greece",
-    "height": "1,72m",
-    "foot": "right",
-    "contractStarted": "01/07/2023",
-    "contractEnds": "30/06/2028",
-    "age": "19",
-    "value": null,
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1077528-1762872613.png?lm=1"
   },
   {
     "number": "4",
@@ -211,7 +211,20 @@ const footballRosterData = [
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/258027-1756943455.png?lm=1"
   },
   {
-    "number": "-",
+    "number": "52",
+    "name": "Tonny Vilhena",
+    "position": "Central Midfield",
+    "country": "🇳🇱 Netherlands",
+    "height": "1,75m",
+    "foot": "left",
+    "contractStarted": "07/07/2023",
+    "contractEnds": "30/06/2027",
+    "age": "31",
+    "value": "€800k",
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/182581-1756043310.png?lm=1"
+  },
+  {
+    "number": "18",
     "name": "Sotiris Kontouris",
     "position": "Central Midfield",
     "country": "🇬🇷 Greece",
@@ -225,16 +238,16 @@ const footballRosterData = [
   },
   {
     "number": "-",
-    "name": "Rushit Zeka",
+    "name": "Moussa Sissoko",
     "position": "Central Midfield",
-    "country": "🇬🇷 Greece",
-    "height": "-",
-    "foot": null,
-    "contractStarted": "01/07/2024",
+    "country": "🇫🇷 France",
+    "height": "1,87m",
+    "foot": "right",
+    "contractStarted": "02/02/2026",
     "contractEnds": "30/06/2027",
-    "age": "18",
-    "value": null,
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1077529-1748891750.png?lm=1"
+    "age": "36",
+    "value": "€300k",
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/46001-1703065177.jpg?lm=1"
   },
   {
     "number": "11",
@@ -250,6 +263,19 @@ const footballRosterData = [
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/162571-1756043448.png?lm=1"
   },
   {
+    "number": "20",
+    "name": "Vicente Taborda",
+    "position": "Attacking Midfield",
+    "country": "🇦🇷 Argentina",
+    "height": "1,78m",
+    "foot": "right",
+    "contractStarted": "02/09/2025",
+    "contractEnds": "30/06/2029",
+    "age": "24",
+    "value": "€3.50m",
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/906748-1762874532.png?lm=1"
+  },
+  {
     "number": "31",
     "name": "Filip Djuricic",
     "position": "Attacking Midfield",
@@ -258,7 +284,7 @@ const footballRosterData = [
     "foot": "right",
     "contractStarted": "01/07/2023",
     "contractEnds": "30/06/2026",
-    "age": "33",
+    "age": "34",
     "value": "€1.00m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/94307-1756043480.png?lm=1"
   },
@@ -275,14 +301,14 @@ const footballRosterData = [
     "value": "€8.00m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/491296-1756043546.png?lm=1"
   },
-    {
+  {
     "number": "10",
-    "name": " Santino Andino",
+    "name": "Santino Andino",
     "position": "Left Winger",
     "country": "🇦🇷 Argentina",
     "height": "1,74m",
     "foot": "right",
-    "contractStarted": "18/01/2026",
+    "contractStarted": "22/01/2026",
     "contractEnds": "30/06/2030",
     "age": "20",
     "value": "€5.00m",
@@ -315,19 +341,6 @@ const footballRosterData = [
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/905189-1762962183.jpg?lm=1"
   },
   {
-    "number": "-",
-    "name": "Sotirios Terzis",
-    "position": "Right Winger",
-    "country": "🇬🇷 Greece",
-    "height": "-",
-    "foot": null,
-    "contractStarted": null,
-    "contractEnds": "30/06/2028",
-    "age": "18",
-    "value": null,
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1309366-1762872944.png?lm=1"
-  },
-  {
     "number": "22",
     "name": "Georgios Kyriopoulos",
     "position": "Right Winger",
@@ -355,14 +368,14 @@ const footballRosterData = [
   },
   {
     "number": "19",
-    "name": "Karol Swiderski",
+    "name": "Karol Świderski",
     "position": "Centre-Forward",
     "country": "🇵🇱 Poland",
     "height": "1,84m",
     "foot": "left",
     "contractStarted": "23/01/2025",
     "contractEnds": "30/06/2028",
-    "age": "28",
+    "age": "29",
     "value": "€5.00m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/330126-1756043790.png?lm=1"
   },
@@ -370,7 +383,7 @@ const footballRosterData = [
     "number": "33",
     "name": "Cyriel Dessers",
     "position": "Centre-Forward",
-    "country": "🇳🇬 Nigeria",
+    "country": "Nigeria",
     "height": "1,85m",
     "foot": "right",
     "contractStarted": "01/09/2025",
@@ -404,19 +417,6 @@ const footballRosterData = [
     "age": "24",
     "value": "€2.00m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/905184-1762962412.jpg?lm=1"
-  },
-  {
-    "number": "-",
-    "name": "Iason Nempis",
-    "position": "Striker",
-    "country": "🇬🇷 Greece",
-    "height": "-",
-    "foot": null,
-    "contractStarted": "01/07/2025",
-    "contractEnds": "-",
-    "age": "16",
-    "value": null,
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1340846-1762873043.png?lm=1"
   }
 ];
 
