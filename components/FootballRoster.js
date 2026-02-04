@@ -26,7 +26,7 @@ const footballRosterData = [
     "contractEnds": "30/06/2026",
     "age": "30",
     "value": "€1.00m",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/360791-1738081785.png?lm=1"
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/360791-1770038886.png?lm=1"
   },
   {
     "number": "70",
@@ -107,6 +107,19 @@ const footballRosterData = [
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1047109-1757720330.jpg?lm=1"
   },
   {
+    "number": "26",
+    "name": "Javi Hernández",
+    "position": "Left-Back",
+    "country": "🇪🇸 Spain",
+    "height": "1,80m",
+    "foot": "left",
+    "contractStarted": "02/02/2026",
+    "contractEnds": "30/06/2026",
+    "age": "27",
+    "value": "€2.00m",
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/422466-1770126002.png?lm=1"
+  },
+  {
     "number": "77",
     "name": "Georgios Kyriakopoulos",
     "position": "Left-Back",
@@ -136,7 +149,7 @@ const footballRosterData = [
     "number": "2",
     "name": "Davide Calabria",
     "position": "Right-Back",
-    "country": "Italy",
+    "country": "🇮🇹 Italy",
     "height": "1,76m",
     "foot": "right",
     "contractStarted": "17/08/2025",
@@ -234,10 +247,10 @@ const footballRosterData = [
     "contractEnds": "30/06/2029",
     "age": "20",
     "value": "€400k",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1031590-1738082537.png?lm=1"
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1031590-1770038842.png?lm=1"
   },
   {
-    "number": "-",
+    "number": "17",
     "name": "Moussa Sissoko",
     "position": "Central Midfield",
     "country": "🇫🇷 France",
@@ -247,7 +260,7 @@ const footballRosterData = [
     "contractEnds": "30/06/2027",
     "age": "36",
     "value": "€300k",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/46001-1703065177.jpg?lm=1"
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/46001-1770126068.png?lm=1"
   },
   {
     "number": "11",
@@ -312,7 +325,7 @@ const footballRosterData = [
     "contractEnds": "30/06/2030",
     "age": "20",
     "value": "€5.00m",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1305935-1768400484.jpg?lm=1"
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1305935-1770126109.png?lm=1"
   },
   {
     "number": "28",
@@ -338,7 +351,7 @@ const footballRosterData = [
     "contractEnds": "30/06/2029",
     "age": "23",
     "value": "€1.00m",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/905189-1762962183.jpg?lm=1"
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/905189-1770038792.png?lm=1"
   },
   {
     "number": "22",
@@ -362,7 +375,7 @@ const footballRosterData = [
     "foot": null,
     "contractStarted": "01/07/2025",
     "contractEnds": "30/06/2027",
-    "age": "18",
+    "age": "19",
     "value": "€100k",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1077461-1756043725.png?lm=1"
   },
@@ -416,7 +429,7 @@ const footballRosterData = [
     "contractEnds": "30/06/2029",
     "age": "24",
     "value": "€2.00m",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/905184-1762962412.jpg?lm=1"
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/905184-1770038735.png?lm=1"
   }
 ];
 
