@@ -9,7 +9,7 @@ const rssFeeds = [
   'https://www.sdna.gr/latest.xml',
   'https://leoforos1908.gr/?feed=rss2',
   'https://www.athletiko.gr/feed',
-  'https://www.onlypao.gr/feed/',
+  'https://monobala.gr/category/teams/sl1/panathinaikos/feed/',
   'https://prasinoforos.gr/feed/',
 ];
 

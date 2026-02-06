@@ -73,7 +73,7 @@ const NewsComponent = React.forwardRef((
         if (url.includes('sdna')) return 'SDNA';
         if (url.includes('leoforos')) return 'Leoforos1908';
         if (url.includes('prasinoforos')) return 'Prasinoforos';
-        if (url.includes('onlypao')) return 'OnlyPao';
+        if (url.includes('monobala')) return 'Monobala';
         if (url.includes('athletiko')) return 'Athletiko';
         return 'Άγνωστη Πηγή';
       };
