@@ -211,19 +211,6 @@ const footballRosterData = [
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/258027-1756943455.png?lm=1"
   },
   {
-    "number": "52",
-    "name": "Tonny Vilhena",
-    "position": "Central Midfield",
-    "country": "🇳🇱 Netherlands",
-    "height": "1,75m",
-    "foot": "left",
-    "contractStarted": "07/07/2023",
-    "contractEnds": "30/06/2027",
-    "age": "31",
-    "value": "€800k",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/182581-1756043310.png?lm=1"
-  },
-  {
     "number": "18",
     "name": "Sotiris Kontouris",
     "position": "Central Midfield",
@@ -291,7 +278,7 @@ const footballRosterData = [
   {
     "number": "31",
     "name": "Filip Djuricic",
-    "position": "Attacking Midfield",
+    "position": "Left Winger",
     "country": "🇷🇸 Serbia",
     "height": "1,81m",
     "foot": "right",
@@ -352,19 +339,6 @@ const footballRosterData = [
     "age": "23",
     "value": "€1.00m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/905189-1770038792.png?lm=1"
-  },
-  {
-    "number": "22",
-    "name": "Georgios Kyriopoulos",
-    "position": "Right Winger",
-    "country": "🇬🇷 Greece",
-    "height": "1,79m",
-    "foot": "left",
-    "contractStarted": "01/07/2024",
-    "contractEnds": "30/06/2028",
-    "age": "21",
-    "value": "€350k",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/898021-1756043694.png?lm=1"
   },
   {
     "number": "39",
