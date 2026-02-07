@@ -128,22 +128,9 @@ const footballRosterData = [
     "foot": "left",
     "contractStarted": "01/07/2025",
     "contractEnds": "30/06/2029",
-    "age": "29",
+    "age": "30",
     "value": "€2.00m",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/311178-1756043034.png?lm=1"
-  },
-  {
-    "number": "25",
-    "name": "Filip Mladenovic",
-    "position": "Left-Back",
-    "country": "🇷🇸 Serbia",
-    "height": "1,80m",
-    "foot": "left",
-    "contractStarted": "01/07/2023",
-    "contractEnds": "30/06/2026",
-    "age": "34",
-    "value": "€600k",
-    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/168063-1756043070.png?lm=1"
   },
   {
     "number": "2",
@@ -261,6 +248,19 @@ const footballRosterData = [
     "age": "36",
     "value": "€300k",
     "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/46001-1770126068.png?lm=1"
+  },
+  {
+    "number": "88",
+    "name": "Adriano Jagusic",
+    "position": "Attacking Midfield",
+    "country": "🇭🇷 Croatia",
+    "height": "1,78m",
+    "foot": "left",
+    "contractStarted": "06/02/2026",
+    "contractEnds": "30/06/2030",
+    "age": "20",
+    "value": "€4.00m",
+    "imageUrl": "https://img.a.transfermarkt.technology/portrait/medium/1024285-1733641392.jpeg?lm=1"
   },
   {
     "number": "11",
@@ -396,7 +396,7 @@ const footballRosterData = [
     "number": "33",
     "name": "Cyriel Dessers",
     "position": "Centre-Forward",
-    "country": "Nigeria",
+    "country": "🇳🇬 Nigeria",
     "height": "1,85m",
     "foot": "right",
     "contractStarted": "01/09/2025",
