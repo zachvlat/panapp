@@ -3,6 +3,24 @@ import { ScrollView, StyleSheet, View, Text, FlatList } from 'react-native';
 
 const basketballRosterData = [
   {
+    {
+    "number": "-",
+    "name": "Nigel Hayes-Davis",
+    "height": {
+      "cm": "201",
+      "inches": "6'7''"
+    },
+    "position": "PF",
+    "age": "31",
+    "nationality": "🇺🇸",
+    "fromYear": "2026",
+    "toYear": "2029",
+    "formerTeam": {
+      "name": "Phoenix Suns",
+      "country": "🇺🇸"
+    },
+    "agent": "-"
+  },
     "number": "0",
     "name": "TJ Shorts",
     "height": {
