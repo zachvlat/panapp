@@ -14,7 +14,7 @@
     "axios": "^1.13.5",
     "buffer": "^6.0.3",
     "expo": "~54.0.32",
-    "fast-xml-parser": "^5.3.4",
+    "fast-xml-parser": "^5.3.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
