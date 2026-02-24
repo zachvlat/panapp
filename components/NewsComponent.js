@@ -82,7 +82,7 @@ for (const url of rssUrls) {
         try {
           // Use CORS proxy only for web platform
           const isWeb = typeof window !== 'undefined' && window.location?.hostname;
-          const fetchUrl = isWeb ? `https://cors-anywhere.herokuapp.com/${url}` : url;
+          const fetchUrl = isWeb ? `https://corsproxy.io/${url}` : url;
           const res = await fetch(fetchUrl);
           const xml = await res.text();
           const json = parser.parse(xml);
