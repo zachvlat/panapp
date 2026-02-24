@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import { DataTable } from 'react-native-paper';
+import Svg, { Image as SvgImage } from 'react-native-svg';
 
 const STANDINGS_URL = "https://www.gazzetta.gr/gztfeeds/standings/league/2186";
 
@@ -44,11 +45,13 @@ export default function FootballStandings() {
     }
   };
 
-  const renderTeam = (team) => {
+const renderTeam = (team) => {
   const stats = {};
   team.columns.forEach(col => Object.assign(stats, col));
 
   const isPanathinaikos = team.team_name === "Παναθηναϊκός";
+  const logoUrl = `https://www.gazzetta.gr${team.team_logo}`;
+  const isSvg = logoUrl.toLowerCase().endsWith('.svg');
 
   return (
     <DataTable.Row 
@@ -57,10 +60,22 @@ export default function FootballStandings() {
       <DataTable.Cell numeric style={styles.rankCell}>{team.rank}</DataTable.Cell>
       <DataTable.Cell style={styles.teamCell}>
         <View style={styles.teamContainer}>
-          <Image 
-            source={{ uri: `https://www.gazzetta.gr${team.team_logo}` }} 
-            style={styles.teamLogo}
-          />
+          {isSvg ? (
+            <Svg width={22} height={22} viewBox="0 0 22 22">
+              <SvgImage
+                href={{ uri: logoUrl }}
+                x="0"
+                y="0"
+                width={22}
+                height={22}
+              />
+            </Svg>
+          ) : (
+            <Image 
+              source={{ uri: logoUrl }} 
+              style={styles.teamLogo}
+            />
+          )}
           <Text style={styles.teamName}>{team.team_name}</Text>
         </View>
       </DataTable.Cell>

@@ -20,6 +20,7 @@ const basketballRosterData = [
     },
     "agent": "-"
   },
+  {
     "number": "0",
     "name": "TJ Shorts",
     "height": {
@@ -289,7 +290,7 @@ const basketballRosterData = [
     },
     "agent": ""
   },
-    {
+  {
     "number": "8",
     "name": "Richaun Holmes",
     "height": {
