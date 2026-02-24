@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet, View, Text, FlatList } from 'react-native';
 
 const basketballRosterData = [
   {
-    {
     "number": "-",
     "name": "Nigel Hayes-Davis",
     "height": {
