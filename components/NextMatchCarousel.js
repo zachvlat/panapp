@@ -295,14 +295,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   teamLogo: {
-    width: 70,
-    height: 70,
+    width: 100,
+    height: 100,
     marginBottom: 8,
     backgroundColor: 'transparent',
   },
   panathinaikosLogo: {
-    width: 70,
-    height: 70,
+    // width: 70,
+    // height: 70,
     marginBottom: 8,
     backgroundColor: 'transparent',
   },

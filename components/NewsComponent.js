@@ -81,8 +81,7 @@ const NewsComponent = React.forwardRef((
 for (const url of rssUrls) {
         try {
           // Use CORS proxy only for web platform
-          const isWeb = typeof window !== 'undefined' && window.location?.hostname;
-          const fetchUrl = isWeb ? `https://api.allorigins.win/raw?url=${url}` : url;
+          const fetchUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
           const res = await fetch(fetchUrl);
           const xml = await res.text();
           const json = parser.parse(xml);
@@ -290,11 +289,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#1d5e38',
     padding: 12,
     borderRadius: 12,
+    elevation: 5,
     shadowColor: '#a8e6cf',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 4,
-    elevation: 5,
   },
   image: {
     width: '100%',
