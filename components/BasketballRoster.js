@@ -1,336 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList } from 'react-native';
 
-const basketballRosterData = [
-  {
-    "number": "-",
-    "name": "Nigel Hayes-Davis",
-    "height": {
-      "cm": "201",
-      "inches": "6'7''"
-    },
-    "position": "PF",
-    "age": "31",
-    "nationality": "🇺🇸",
-    "fromYear": "2026",
-    "toYear": "2029",
-    "formerTeam": {
-      "name": "Phoenix Suns",
-      "country": "🇺🇸"
-    },
-    "agent": "-"
-  },
-  {
-    "number": "0",
-    "name": "TJ Shorts",
-    "height": {
-      "cm": "175",
-      "inches": "5'9''"
-    },
-    "position": "PG",
-    "age": "27",
-    "nationality": "🇺🇸",
-    "fromYear": "2025",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Paris",
-      "country": "🇫🇷"
-    },
-    "agent": "N.Spanos"
-  },
-  {
-    "number": "16",
-    "name": "Cedi Osman",
-    "height": {
-      "cm": "203",
-      "inches": "6'8''"
-    },
-    "position": "F",
-    "age": "30",
-    "nationality": "🇹🇷",
-    "fromYear": "2024",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "San Antonio S.",
-      "country": "🇺🇸"
-    },
-    "agent": "IstBasket"
-  },
-  {
-    "number": "44",
-    "name": "Kostas Mitoglou",
-    "height": {
-      "cm": "210",
-      "inches": "6'11''"
-    },
-    "position": "F/C",
-    "age": "29",
-    "nationality": "🇬🇷",
-    "fromYear": "2023",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Milano",
-      "country": "🇮🇹"
-    },
-    "agent": "J.Ranne"
-  },
-  {
-    "number": "27",
-    "name": "Vasileios Toliopoulos",
-    "height": {
-      "cm": "188",
-      "inches": "6'2''"
-    },
-    "position": "PG",
-    "age": "29",
-    "nationality": "🇬🇷",
-    "fromYear": "2025",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Aris Midea",
-      "country": ""
-    },
-    "agent": "M.Olympios"
-  },
-  {
-    "number": "25",
-    "name": "Kendrick Nunn",
-    "height": {
-      "cm": "194",
-      "inches": "6'5''"
-    },
-    "position": "SG",
-    "age": "30",
-    "nationality": "🇺🇸",
-    "fromYear": "2023",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Washington W.",
-      "country": "🇺🇸"
-    },
-    "agent": "S.Galijasevic"
-  },
-  {
-    "number": "22",
-    "name": "Jerian Grant",
-    "height": {
-      "cm": "196",
-      "inches": "6'5''"
-    },
-    "position": "G",
-    "age": "32",
-    "nationality": "🇺🇸",
-    "fromYear": "2023",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Turk Telekom",
-      "country": "🇹🇷"
-    },
-    "agent": "J.Ranne"
-  },
-  {
-    "number": "10",
-    "name": "Kostas Sloukas",
-    "height": {
-      "cm": "190",
-      "inches": "6'3''"
-    },
-    "position": "PG",
-    "age": "35",
-    "nationality": "🇬🇷",
-    "fromYear": "2023",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Fenerbahce",
-      "country": "🇹🇷"
-    },
-    "agent": "P.Kapazoglou"
-  },
-  {
-    "number": "26",
-    "name": "Mathias Lessort",
-    "height": {
-      "cm": "206",
-      "inches": "6'9''"
-    },
-    "position": "C",
-    "age": "29",
-    "nationality": "🇫🇷",
-    "fromYear": "2023",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Partizan",
-      "country": "🇷🇸"
-    },
-    "agent": "D.Carro"
-  },
-  {
-    "number": "41",
-    "name": "Juancho Hernangomez",
-    "height": {
-      "cm": "206",
-      "inches": "6'9''"
-    },
-    "position": "PF",
-    "age": "29",
-    "nationality": "🇪🇸",
-    "fromYear": "2023",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Toronto R.",
-      "country": "🇺🇸"
-    },
-    "agent": "I.Crespo"
-  },
-  {
-    "number": "23",
-    "name": "Ioannis Kouzeloglou",
-    "height": {
-      "cm": "206",
-      "inches": "6'9''"
-    },
-    "position": "PF",
-    "age": "30",
-    "nationality": "🇬🇷",
-    "fromYear": "2025",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Burgos SP",
-      "country": "🇪🇸"
-    },
-    "agent": "A.Papasiopis"
-  },
-  {
-    "number": "20",
-    "name": "Alexandros Samodurov",
-    "height": {
-      "cm": "211",
-      "inches": "6'11''"
-    },
-    "position": "F/C",
-    "age": "20",
-    "nationality": "🇬🇷",
-    "fromYear": "2023",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Panerythraikos",
-      "country": ""
-    },
-    "agent": "N.Lotsos"
-  },
-  {
-    "number": "0",
-    "name": "Panagiotis Kalaitzakis",
-    "height": {
-      "cm": "200",
-      "inches": "6'7''"
-    },
-    "position": "G/F",
-    "age": "26",
-    "nationality": "🇬🇷",
-    "fromYear": "2022",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Lietkabelis",
-      "country": "🇱🇹"
-    },
-    "agent": "M.Rutkauskas"
-  },
-  {
-    "number": "77",
-    "name": "Omer Yurtseven",
-    "height": {
-      "cm": "213",
-      "inches": "7'0''"
-    },
-    "position": "C",
-    "age": "27",
-    "nationality": "🇹🇷",
-    "fromYear": "2024",
-    "toYear": "2025",
-    "formerTeam": {
-      "name": "Utah Jazz",
-      "country": "🇺🇸"
-    },
-    "agent": "K.Glass"
-  },
-  {
-    "number": "40",
-    "name": "Marius Grigonis",
-    "height": {
-      "cm": "198",
-      "inches": "6'6''"
-    },
-    "position": "F/G",
-    "age": "31",
-    "nationality": "🇱🇹",
-    "fromYear": "2022",
-    "toYear": "2025",
-    "formerTeam": {
-      "name": "CSKA",
-      "country": ""
-    },
-    "agent": "D.Baziukas"
-  },
-  {
-    "number": "17",
-    "name": "Nikolaos Rogkavopoulos",
-    "height": {
-      "cm": "200",
-      "inches": "6'7''"
-    },
-    "position": "SF",
-    "age": "24",
-    "nationality": "🇬🇷",
-    "fromYear": "2025",
-    "toYear": "2025",
-    "formerTeam": {
-      "name": "Baskonia",
-      "country": "🇪🇸"
-    },
-    "agent": ""
-  },
-  {
-    "number": "8",
-    "name": "Richaun Holmes",
-    "height": {
-      "cm": "208",
-      "inches": "6'8''"
-    },
-    "position": "C",
-    "age": "31",
-    "nationality": "🇺🇸",
-    "fromYear": "2025",
-    "toYear": "2025",
-    "formerTeam": {
-      "name": "Washington Wizards",
-      "country": "🇺🇸"
-    },
-    "agent": "R.Beda"
-  },
-  {
-    "number": "35",
-    "name": "Kenneth Faried",
-    "height": {
-      "cm": "203",
-      "inches": "6'8''"
-    },
-    "position": "C",
-    "age": "36",
-    "nationality": "🇺🇸",
-    "fromYear": "2025",
-    "toYear": "2026",
-    "formerTeam": {
-      "name": "Ghosthawks",
-      "country": "🇹🇼"
-    },
-    "agent": "M.Frankel"
-  }
-];
-
 const BasketballRoster = () => {
-  // Group players by position
-  const data = basketballRosterData.reduce((acc, player) => {
+  const [rosterData, setRosterData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://various-files.vercel.app/basketballRoster.json')
+      .then(response => response.json())
+      .then(data => {
+        setRosterData(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching basketball roster:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <ScrollView style={styles.container}>
+        <Text style={styles.loadingText}>Loading...</Text>
+      </ScrollView>
+    );
+  }
+
+  const data = rosterData.reduce((acc, player) => {
     if (!acc[player.position]) {
       acc[player.position] = [];
     }
@@ -338,7 +34,6 @@ const BasketballRoster = () => {
     return acc;
   }, {});
 
-  // Calculate stats
   const calculateStats = () => {
     const allPlayers = Object.values(data).flat();
     const greekPlayers = allPlayers.filter(player => 
@@ -401,6 +96,11 @@ const BasketballRoster = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+  },
+  loadingText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
   },
   statsContainer: {
     flexDirection: 'row',
