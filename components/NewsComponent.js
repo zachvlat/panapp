@@ -81,7 +81,7 @@ const NewsComponent = React.forwardRef((
 for (const url of rssUrls) {
         try {
           // Use CORS proxy only for web platform
-          const fetchUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+          const fetchUrl = `https://corsproxy.io/?url=${encodeURIComponent(url)}`;
           const res = await fetch(fetchUrl);
           const xml = await res.text();
           const json = parser.parse(xml);
