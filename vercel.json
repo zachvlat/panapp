@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/rss/:path*",
+      "destination": "https://corsproxy.io/?url=https://:path*"
+    }
+  ]
+}
