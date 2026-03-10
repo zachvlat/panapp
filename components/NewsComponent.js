@@ -51,7 +51,7 @@ const NewsComponent = React.forwardRef((
     parseItem = defaultParseItem,
     layout = 'list',
     onNewsLoaded,
-    featured, // 🔥 new prop so we can skip the featured article
+    featured,
   },
   ref
 ) => {
@@ -63,79 +63,68 @@ const NewsComponent = React.forwardRef((
   }, []);
 
   const fetchAllFeeds = async () => {
-  setLoading(true);
-  try {
-    const allItems = [];
+    setLoading(true);
+    try {
+      const allItems = [];
 
-    const getSourceName = (url) => {
-      if (url.includes('gazzetta')) return 'Gazzetta';
-      if (url.includes('inpao')) return 'InPao';
-      if (url.includes('sdna')) return 'SDNA';
-      if (url.includes('leoforos')) return 'Leoforos1908';
-      if (url.includes('prasinoforos')) return 'Prasinoforos';
-      if (url.includes('monobala')) return 'Monobala';
-      if (url.includes('athletiko')) return 'Athletiko';
-      return 'Άγνωστη Πηγή';
-    };
+      const getSourceName = (url) => {
+        if (url.includes('gazzetta')) return 'Gazzetta';
+        if (url.includes('inpao')) return 'InPao';
+        if (url.includes('sdna')) return 'SDNA';
+        if (url.includes('leoforos')) return 'Leoforos1908';
+        if (url.includes('prasinoforos')) return 'Prasinoforos';
+        if (url.includes('monobala')) return 'Monobala';
+        if (url.includes('athletiko')) return 'Athletiko';
+        return 'Άγνωστη Πηγή';
+      };
 
-    for (const url of rssUrls) {
-      try {
-        // Check if we're in production (Vercel)
-        const isProduction = process.env.NODE_ENV === 'production';
-        
-        let fetchUrl;
-        if (isProduction) {
-          // Extract the domain and path from the RSS URL
-          // Remove https:// or http:// from the beginning
-          const urlWithoutProtocol = url.replace(/^https?:\/\//, '');
-          fetchUrl = `/api/rss/${urlWithoutProtocol}`;
-        } else {
-          // Use CORS proxy for local development
-          fetchUrl = `https://corsproxy.io/?url=${encodeURIComponent(url)}`;
-        }
-        
-        const res = await fetch(fetchUrl);
-        const xml = await res.text();
-        const json = parser.parse(xml);
+for (const url of rssUrls) {
+        try {
+          // Use CORS proxy only for web platform
+          //const fetchUrl = `http://alloworigin.com/get?url=${encodeURIComponent(url)}`;
+          //const res = await fetch(fetchUrl);
+          const res = await fetch(url);
+          const xml = await res.text();
+          const json = parser.parse(xml);
 
-        const items = json?.rss?.channel?.item || [];
-        const filtered = filterKeywords.length
-          ? items.filter((i) =>
-              filterKeywords.some((k) =>
-                `${i.title || ''} ${i.description || ''}`
-                  .toLowerCase()
-                  .includes(k.toLowerCase())
+          const items = json?.rss?.channel?.item || [];
+          const filtered = filterKeywords.length
+            ? items.filter((i) =>
+                filterKeywords.some((k) =>
+                  `${i.title || ''} ${i.description || ''}`
+                    .toLowerCase()
+                    .includes(k.toLowerCase())
+                )
               )
-            )
-          : items;
+            : items;
 
-        const source = getSourceName(url);
+          const source = getSourceName(url);
 
-        const parsed = filtered
-          .map((item) => parseItem(item, source))
-          .filter(
-            (item) =>
-              item.pubDate instanceof Date && !isNaN(item.pubDate.getTime())
-          );
+          const parsed = filtered
+            .map((item) => parseItem(item, source))
+            .filter(
+              (item) =>
+                item.pubDate instanceof Date && !isNaN(item.pubDate.getTime())
+            );
 
-        allItems.push(...parsed);
-      } catch (feedErr) {
-        console.warn(`Feed failed: ${url}`, feedErr);
+          allItems.push(...parsed);
+        } catch (feedErr) {
+          console.warn(`Feed failed: ${url}`, feedErr);
+        }
       }
-    }
 
-    const sorted = allItems.sort((a, b) => b.pubDate - a.pubDate);
-    setNewsItems(sorted);
+      const sorted = allItems.sort((a, b) => b.pubDate - a.pubDate);
+      setNewsItems(sorted);
 
-    if (onNewsLoaded) {
-      onNewsLoaded(sorted);
+      if (onNewsLoaded) {
+        onNewsLoaded(sorted);
+      }
+    } catch (err) {
+      console.error('Failed to fetch feeds', err);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error('Failed to fetch feeds', err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   React.useImperativeHandle(ref, () => ({
     fetchAllFeeds,
