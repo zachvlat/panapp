@@ -32,7 +32,7 @@ function TabNavigator(theme) {
       }}
     >
       <Tab.Screen
-        name="Αρχική"
+        name="Green Portal"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -67,7 +67,7 @@ function TabNavigator(theme) {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Πληροφορίες"
         component={FootballScreen}
         options={{
@@ -75,7 +75,7 @@ function TabNavigator(theme) {
             <MaterialCommunityIcons name="information" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
