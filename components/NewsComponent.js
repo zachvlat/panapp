@@ -17,7 +17,6 @@ const parser = new XMLParser({
   attributeNamePrefix: '@_',
 });
 
-// improved parsing logic with better image extraction
 const defaultParseItem = (item, source = '') => {
   const html = item['content:encoded'] || item.description || '';
 
@@ -80,9 +79,6 @@ const NewsComponent = React.forwardRef((
 
 for (const url of rssUrls) {
         try {
-          // Use CORS proxy only for web platform
-          //const fetchUrl = `http://alloworigin.com/get?url=${encodeURIComponent(url)}`;
-          //const res = await fetch(fetchUrl);
           const res = await fetch(url);
           const xml = await res.text();
           const json = parser.parse(xml);
@@ -139,7 +135,6 @@ for (const url of rssUrls) {
   }
 
   if (layout === 'carousel') {
-    // skip featured article
     const carouselItems = newsItems
       .filter((item) => item.image && (!featured || item.link !== featured.link))
       .slice(0, 5);
@@ -168,16 +163,13 @@ for (const url of rssUrls) {
     );
   }
 
-  // list layout (skip featured here too)
   const listItems = newsItems.filter(
     (item) => !featured || item.link !== featured.link
   );
 
-  // Determine number of columns based on screen width
   const numColumns = screenWidth > 900 ? 3 : screenWidth > 600 ? 2 : 1;
   const isMultiColumn = numColumns > 1;
   
-  // Group items into rows for multi-column layout
   const rows = [];
   if (isMultiColumn) {
     for (let i = 0; i < listItems.length; i += numColumns) {
@@ -189,7 +181,6 @@ for (const url of rssUrls) {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.contentWrapper}>
         {isMultiColumn ? (
-          // Multi-column layout
           rows.map((row, rowIndex) => (
             <View key={rowIndex} style={styles.row}>
               {row.map((news, colIndex) => (
@@ -210,7 +201,6 @@ for (const url of rssUrls) {
             </View>
           ))
         ) : (
-          // Single column layout
           listItems.map((news, index) => (
             <Pressable
               key={index}

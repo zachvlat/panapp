@@ -23,7 +23,6 @@ export default function HomeScreen({ navigation }) {
   const parseItem = (item, source = '') => {
     const html = item['content:encoded'] || item.description || '';
 
-    // better image extraction
     let image = null;
     if (item.enclosure?.['@_url']) {
       image = item.enclosure['@_url'];

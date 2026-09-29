@@ -83,9 +83,7 @@ const renderTeam = (team) => {
       <DataTable.Cell numeric>{stats.W}</DataTable.Cell>
       <DataTable.Cell numeric>{stats.D}</DataTable.Cell>
       <DataTable.Cell numeric>{stats.L}</DataTable.Cell>
-      {/* <DataTable.Cell numeric>{stats.GS}</DataTable.Cell>
-      <DataTable.Cell numeric>{stats.GA}</DataTable.Cell>
-      <DataTable.Cell numeric>{stats.GD}</DataTable.Cell> */}
+
       <DataTable.Cell numeric><Text style={styles.points}>{stats.Pts}</Text></DataTable.Cell>
     </DataTable.Row>
   );
@@ -119,9 +117,7 @@ const renderTeam = (team) => {
           <DataTable.Title numeric>Ν</DataTable.Title>
           <DataTable.Title numeric>Ι</DataTable.Title>
           <DataTable.Title numeric>Η</DataTable.Title>
-          {/* <DataTable.Title numeric>ΓΥ</DataTable.Title>
-          <DataTable.Title numeric>ΓΚ</DataTable.Title>
-          <DataTable.Title numeric>Δτ</DataTable.Title> */}
+
           <DataTable.Title numeric>Β</DataTable.Title>
         </DataTable.Header>
         {standings.map(renderTeam)}

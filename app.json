@@ -2,22 +2,17 @@
   "expo": {
     "name": "Green Portal",
     "slug": "panapp",
-    "version": "5.7.1",
+    "version": "5.8.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0B6623"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.zachvlat.panapp",
       "config": {}
     },
     "android": {
-      "versionCode": 17,
+      "versionCode": 18,
       "adaptiveIcon": {
         "foregroundImage": "./assets/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
         "backgroundImage": "./assets/IconKitchen-Output/android/res/mipmap-xxxhdpi/ic_launcher_background.png",
@@ -34,7 +29,15 @@
       }
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#0B6623"
+        }
+      ]
     ]
   }
 }

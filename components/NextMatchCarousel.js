@@ -1,9 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, ScrollView, Dimensions, Image } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import { SvgUri } from 'react-native-svg';
+import { SvgXml } from 'react-native-svg';
 
 const { width } = Dimensions.get('window');
+
+const SvgImage = ({ uri, color = '#ffffff', style }) => {
+  const [svgXml, setSvgXml] = useState(null);
+
+  useEffect(() => {
+    const fetchSvg = async () => {
+      try {
+        const response = await fetch(uri);
+        let svgText = await response.text();
+        
+        svgText = svgText.replace(/currentColor/g, color);
+        const styleMatch = svgText.match(/<style[^>]*>([\s\S]*?)<\/style>/);
+        if (styleMatch) {
+          const css = styleMatch[1];
+          const classRules = {};
+          const ruleRegex = /\.(\w+)\s*\{[^}]*fill:\s*([^;}]+)[^}]*\}/g;
+          let match;
+          while ((match = ruleRegex.exec(css)) !== null) {
+            classRules[match[1]] = match[2].trim();
+          }
+          for (const [className, fillColor] of Object.entries(classRules)) {
+            const classRegex = new RegExp(`class="${className}"`, 'g');
+            svgText = svgText.replace(classRegex, `fill="${fillColor}"`);
+          }
+          svgText = svgText.replace(/<style[^>]*>[\s\S]*?<\/style>/, '');
+        }
+        
+        setSvgXml(svgText);
+      } catch (err) {
+        console.error('Error fetching SVG:', err);
+      }
+    };
+    fetchSvg();
+  }, [uri, color]);
+
+  if (!svgXml) return null;
+  return <SvgXml xml={svgXml} style={style} />;
+};
 
 export default function NextMatchCarousel() {
   const { colors } = useTheme();
@@ -18,10 +56,7 @@ export default function NextMatchCarousel() {
     try {
       setLoading(true);
       
-      // Fetch football match
       const footballMatch = await fetchFootballMatch();
-      
-      // Fetch basketball match
       const basketballMatch = await fetchBasketballMatch();
       
       const allMatches = [];
@@ -109,7 +144,6 @@ export default function NextMatchCarousel() {
   };
 
   const formatMatchDate = (dateString, timeString) => {
-    // Convert DD-MM-YYYY to YYYY-MM-DD for proper date parsing
     const [day, month, year] = dateString.split('-');
     const cleanTime = timeString.replace(' : ', ':').trim();
     const isoDate = `${year}-${month}-${day} ${cleanTime}`;
@@ -158,7 +192,7 @@ export default function NextMatchCarousel() {
             
             <View style={styles.competitionContainer}>
               {match.competitionLogo && match.competitionLogo.endsWith('.svg') ? (
-                <SvgUri 
+                <SvgImage 
                   uri={match.competitionLogo} 
                   style={styles.competitionLogo}
                 />
@@ -177,7 +211,7 @@ export default function NextMatchCarousel() {
             <View style={styles.teamsContainer}>
               <View style={styles.team}>
                 {match.homeTeamLogo && match.homeTeamLogo.endsWith('.svg') ? (
-                  <SvgUri 
+                  <SvgImage 
                     uri={match.homeTeamLogo} 
                     style={match.homeTeamLogo.includes('panathinaikos') ? styles.panathinaikosLogo : styles.teamLogo}
                   />
@@ -198,7 +232,7 @@ export default function NextMatchCarousel() {
               
               <View style={styles.team}>
                 {match.awayTeamLogo && match.awayTeamLogo.endsWith('.svg') ? (
-                  <SvgUri 
+                  <SvgImage 
                     uri={match.awayTeamLogo} 
                     style={match.awayTeamLogo.includes('panathinaikos') ? styles.panathinaikosLogo : styles.teamLogo}
                   />
@@ -301,8 +335,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   panathinaikosLogo: {
-    // width: 70,
-    // height: 70,
     marginBottom: 8,
     backgroundColor: 'transparent',
   },
