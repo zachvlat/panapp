@@ -8,9 +8,4 @@ config.transformer.babelTransformerPath = require.resolve("react-native-svg-tran
 config.resolver.assetExts = config.resolver.assetExts.filter(ext => ext !== "svg");
 config.resolver.sourceExts.push("svg");
 
-// Add polyfills for Node.js modules
-config.resolver.extraNodeModules = {
-  buffer: require.resolve("buffer"),
-};
-
 module.exports = config;
