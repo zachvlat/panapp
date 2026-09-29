@@ -67,15 +67,7 @@ function TabNavigator(theme) {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Πληροφορίες"
-        component={FootballScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="information" color={color} size={size} />
-          ),
-        }}
-      /> */}
+
     </Tab.Navigator>
   );
 }

@@ -87,10 +87,7 @@ export default function EuroleagueStandings() {
         <DataTable.Cell numeric>{stats.MP}</DataTable.Cell>
         <DataTable.Cell numeric>{stats.W}</DataTable.Cell>
         <DataTable.Cell numeric>{stats.L}</DataTable.Cell>
-        {/* <DataTable.Cell numeric>{stats['Pts S']}</DataTable.Cell>
-        <DataTable.Cell numeric>{stats['Pts A']}</DataTable.Cell> */}
-        {/* <DataTable.Cell numeric>{stats.PD}</DataTable.Cell> */}
-        {/* <DataTable.Cell numeric><Text style={[styles.points, { color: 'orange' }]}>{stats['%']}</Text></DataTable.Cell> */}
+
       </DataTable.Row>
     );
   };
@@ -121,10 +118,7 @@ export default function EuroleagueStandings() {
           <DataTable.Title numeric>Αγ.</DataTable.Title>
           <DataTable.Title numeric>Ν</DataTable.Title>
           <DataTable.Title numeric>Η</DataTable.Title>
-          {/* <DataTable.Title numeric>Περισ</DataTable.Title>
-          <DataTable.Title numeric>Συνολ</DataTable.Title>
-          <DataTable.Title numeric>Δτ</DataTable.Title> */}
-          {/* <DataTable.Title numeric>%</DataTable.Title> */}
+
         </DataTable.Header>
         {standings.map(renderTeam)}
       </DataTable>
