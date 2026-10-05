@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Text, FlatList, Image } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Image } from 'react-native';
 
 const FootballRoster = () => {
   const [rosterData, setRosterData] = useState([]);
@@ -36,12 +36,15 @@ const FootballRoster = () => {
 
   const calculateStats = () => {
     const allPlayers = Object.values(data).flat();
-    const greekPlayers = allPlayers.filter(player => 
-      player.country === 'Greece' || player.country === '🇬🇷 Greece' || player.country.includes('🇬🇷')
-    );
-    const greekPercentage = ((greekPlayers.length / allPlayers.length) * 100).toFixed(1);
-    
-    const ages = allPlayers.map(player => parseInt(player.age)).sort((a, b) => a - b);
+    const greekPlayers = allPlayers.filter(player => {
+      const c = player.country || '';
+      return c === 'Greece' || c === '🇬🇷 Greece' || c.includes('🇬🇷') || c.includes('Greece');
+    });
+    const greekPercentage = allPlayers.length
+      ? ((greekPlayers.length / allPlayers.length) * 100).toFixed(1)
+      : '0.0';
+
+    const ages = allPlayers.map(player => parseInt(player.age)).filter(Number.isFinite).sort((a, b) => a - b);
     const medianAge = ages.length % 2 === 0
       ? ((ages[ages.length / 2 - 1] + ages[ages.length / 2]) / 2).toFixed(1)
       : ages[Math.floor(ages.length / 2)];
@@ -51,22 +54,41 @@ const FootballRoster = () => {
 
   const stats = calculateStats();
 
-  const renderPlayer = ({ item }) => (
-    <View style={styles.playerItem}>
-      <Image source={{ uri: item.imageUrl }} style={styles.playerImage} resizeMode="contain" />
-      <View style={styles.playerInfo}>
-        <Text style={styles.playerName}>{item.name}</Text>
-        <Text style={styles.playerDetail}>Position: {item.position}</Text>
-        <Text style={styles.playerDetail}>Height: {item.height}</Text>
-        <Text style={styles.playerDetail}>Foot: {item.foot}</Text>
-        <Text style={styles.playerDetail}>Contract Started: {item.contractStarted}</Text>
-        <Text style={styles.playerDetail}>Contract Ends: {item.contractEnds}</Text>
-        <Text style={styles.playerDetail}>Age: {item.age}</Text>
-        <Text style={styles.playerDetail}>Country: {item.country}</Text>
-        <Text style={styles.playerDetail}>Value: {item.value}</Text>
+  const dash = (v) => (v === null || v === undefined || v === '' || v === '-' ? null : v);
+
+  const renderPlayer = ({ item }) => {
+    const height = dash(item.height);
+    const foot = dash(item.foot);
+    const value = dash(item.value);
+    const country = dash(item.country);
+    const age = dash(item.age);
+
+    return (
+      <View style={styles.playerItem}>
+        <Image source={{ uri: item.imageUrl }} style={styles.playerImage} resizeMode="contain" />
+        <View style={styles.playerInfo}>
+          <View style={styles.nameRow}>
+            <Text style={styles.playerName} numberOfLines={1}>{item.name}</Text>
+            {value && <Text style={styles.playerValue}>{value}</Text>}
+          </View>
+
+          <View style={styles.tagRow}>
+            {dash(item.position) && <Text style={styles.tag}>{item.position}</Text>}
+            {height && <Text style={styles.tag}>{height}</Text>}
+            {age && <Text style={styles.tag}>{age} ετ.</Text>}
+            {foot && <Text style={styles.tag}>{foot === 'left' ? 'Αριστερό' : 'Δεξιό'}</Text>}
+          </View>
+
+          {(country || item.contractEnds) && (
+            <Text style={styles.playerDetail} numberOfLines={1}>
+              {country ? `${country} · ` : ''}
+              {item.contractEnds ? `Συμβόλαιο έως ${item.contractEnds}` : ''}
+            </Text>
+          )}
+        </View>
       </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -84,23 +106,21 @@ const FootballRoster = () => {
           <Text style={styles.statLabel}>Μέση Ηλικία</Text>
         </View>
       </View>
-      {Object.keys(data).map((position) => (
-        <View key={position}>
-          <Text style={styles.positionHeader}>{position}</Text>
-          <FlatList
-            data={data[position]}
-            renderItem={renderPlayer}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      ))}
+      {Object.keys(data).map((position) =>
+        data[position].map((player, i) => (
+          <View key={`${position}-${i}`}>
+            {i === 0 && <Text style={styles.positionHeader}>{position}</Text>}
+            {renderPlayer({ item: player })}
+          </View>
+        ))
+      )}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 12,
   },
   loadingText: {
     fontSize: 18,
@@ -110,59 +130,93 @@ const styles = StyleSheet.create({
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#f0f0f0',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 20,
-    borderWidth: 2,
-    borderColor: 'darkgreen',
+    backgroundColor: '#1E3A18',
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderRadius: 12,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: '#2E5A26',
   },
   statItem: {
     alignItems: 'center',
   },
   statNumber: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: 'darkgreen',
+    color: '#8BC34A',
   },
   statLabel: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 5,
+    fontSize: 11,
+    color: '#A5C99A',
+    marginTop: 2,
   },
   positionHeader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color:'darkgreen',
-    marginVertical: 10,
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#8BC34A',
+    marginTop: 14,
+    marginBottom: 6,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
   },
   playerItem: {
     flexDirection: 'row',
-    padding: 5,
-    marginBottom: 10,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 8,
-    borderWidth: 5,
-    borderColor: 'darkgreen',
+    padding: 8,
+    marginBottom: 6,
+    backgroundColor: '#1E3A18',
+    borderRadius: 10,
+    borderLeftWidth: 3,
+    borderLeftColor: '#4CAF50',
   },
-  playerName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  playerDetail: {
-    fontSize: 14,
-    marginBottom: 3,
-  },
-
   playerImage: {
-    width: 100,
-    height: 100,
+    width: 56,
+    height: 56,
     marginRight: 10,
+    backgroundColor: '#16300F',
+    borderRadius: 8,
   },
   playerInfo: {
     flex: 1,
+    justifyContent: 'center',
   },
-});
+  nameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  playerName: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    flex: 1,
+    marginRight: 8,
+  },
+  playerValue: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#8BC34A',
+  },
+  tagRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 3,
+  },
+  tag: {
+    fontSize: 11,
+    color: '#C8E6C9',
+    backgroundColor: '#2E5A26',
+    borderRadius: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 1,
+    marginRight: 5,
+    marginTop: 2,
+    overflow: 'hidden',
+  },
+  playerDetail: {
+    fontSize: 12,
+    color: '#A5C99A',
+  },
+  });
 
 export default FootballRoster;

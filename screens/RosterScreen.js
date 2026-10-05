@@ -33,7 +33,16 @@ export default function RosterScreen() {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        renderTabBar={props => <TabBar {...props} style={{backgroundColor: 'darkgreen'}}/>}
+        renderTabBar={(props) => (
+          <TabBar
+            {...props}
+            style={styles.tabBar}
+            activeColor="#FFFFFF"
+            inactiveColor="#8FBF7D"
+            indicatorStyle={styles.tabIndicator}
+            labelStyle={styles.tabLabel}
+          />
+        )}
       />
     </View>
   );
@@ -42,12 +51,25 @@ export default function RosterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    paddingTop: 12,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 24,
+    marginBottom: 10,
     textAlign: 'center',
+  },
+  tabBar: {
+    backgroundColor: '#1E3A18',
+  },
+  tabIndicator: {
+    backgroundColor: '#8BC34A',
+    height: 3,
+  },
+  tabLabel: {
+    fontSize: 13,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.6,
   },
 });

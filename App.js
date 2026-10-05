@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen';
 import NewsScreen from './screens/NewsScreen';
 import RosterScreen from './screens/RosterScreen';
 import StandingsScreen from './screens/StandingsScreen';
+import CalendarScreen from './screens/CalendarScreen';
 import FootballScreen from './screens/FootballScreen';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import TopBar from './components/TopBar';
@@ -64,6 +65,15 @@ function TabNavigator(theme) {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="table" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Ημερολόγιο"
+        component={CalendarScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="calendar-month" color={color} size={size} />
           ),
         }}
       />
