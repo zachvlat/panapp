@@ -65,11 +65,11 @@ export default function GameCard({ game, colors }) {
 
       <Text style={[styles.opponent, { color: colors.onSurface }]} numberOfLines={2}>
         <Text style={{ color: accent }}>
-          {game.home ? game.opponent : 'Παναθηναϊκός'}
+          {game.home ? 'Παναθηναϊκός' : game.opponent}
         </Text>
         {' – '}
         <Text style={{ color: accent }}>
-          {game.home ? 'Παναθηναϊκός' : game.opponent}
+          {game.home ? game.opponent : 'Παναθηναϊκός'}
         </Text>
       </Text>
 
@@ -87,28 +87,25 @@ export default function GameCard({ game, colors }) {
           }
         >
           <Text style={[styles.venue, { color: colors.onSurface }]} numberOfLines={2}>
-            📍 {game.venue}
+            {game.venue}
           </Text>
         </Pressable>
       ) : (
         <Text style={[styles.venueMuted, { color: colors.onSurface }]} numberOfLines={1}>
-          📍 Έδρα {game.opponent}
+          Έδρα {game.opponent}
         </Text>
       )}
 
-      <View style={styles.footer}>
-        {isPlayed ? (
-          <Text style={[styles.flag, { color: colors.onSurface }]}>Διεξήχθη</Text>
-        ) : (
-          <Text style={[styles.flag, { color: colors.primary }]}>Αναμονή</Text>
-        )}
-        {!game.timeConfirmed && <Text style={[styles.flag, { color: colors.onSurface }]}>Ώρα προς διευκρίνιση</Text>}
-        {!game.home && <Text style={[styles.flag, { color: colors.onSurface }]}>Εκτός έδρας</Text>}
-        {}
-        {game.conflict && (
-          <Text style={[styles.flag, { color: '#FFB300' }]}>Πιθανή μετακίνηση</Text>
-        )}
-      </View>
+      {(isPlayed || !game.timeConfirmed) && (
+        <View style={styles.footer}>
+          {isPlayed && (
+            <Text style={[styles.flag, { color: colors.onSurface }]}>Διεξήχθη</Text>
+          )}
+          {!game.timeConfirmed && (
+            <Text style={[styles.flag, { color: colors.onSurface }]}>Ώρα προς διευκρίνιση</Text>
+          )}
+        </View>
+      )}
     </View>
   );
 }

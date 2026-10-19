@@ -55,28 +55,12 @@ export default function CalendarScreen() {
     return map;
   }, [filtered]);
 
+  // Always open on today. Select today once on mount (even if it has no games),
+  // and never force the selection back when the user picks an empty day.
   useEffect(() => {
-    if (selectedKey !== null || !filtered.length) return;
-
-    if (gamesByKey.has(todayKey)) {
-      setSelectedKey(todayKey);
-      return;
-    }
-    const upcoming = filtered
-      .filter((g) => g.status !== 'played')
-      .sort((a, b) => a.key - b.key || a.hours - b.hours)[0];
-    if (upcoming) {
-      setSelectedKey(upcoming.key);
-      setCursor({ year: upcoming.year, month: upcoming.month });
-    }
-  }, [filtered, gamesByKey, selectedKey, todayKey]);
-
-  useEffect(() => {
-    if (selectedKey === null) return;
-    if (!gamesByKey.has(selectedKey)) {
-      setSelectedKey(gamesByKey.has(todayKey) ? todayKey : null);
-    }
-  }, [gamesByKey, selectedKey, todayKey]);
+    if (selectedKey !== null) return;
+    setSelectedKey(todayKey);
+  }, [selectedKey, todayKey]);
 
   const selectedGames = selectedKey !== null ? gamesByKey.get(selectedKey) || [] : [];
 
@@ -90,7 +74,7 @@ export default function CalendarScreen() {
 
   const goToday = () => {
     setCursor({ year: today.year, month: today.month });
-    setSelectedKey(gamesByKey.has(todayKey) ? todayKey : null);
+    setSelectedKey(todayKey);
   };
 
   if (!ALL_GAMES.length) {
